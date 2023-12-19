@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "types": ["node", "jest"],
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@headlessui/*": ["src/components/ui/headless/*"],
+      "@components/*": ["src/components/*"],
+      "@pages/*": ["src/pages/*"],
+      "@libs/*": ["src/libs/*"],
+      "@styles/*": ["src/styles/*"],
+      "@tests/*": ["src/__test__/*"],
+      "@store/*": ["src/store/*"],
+      "@interfaces/*": ["src/interfaces/*"],
+      "@apis/*": ["src/apis/*"],
+      "@type/*": ["src/types/*"],
+      "@utils/*": ["src/utils/*"],
+      "@assets/*": ["src/assets/*"],
+      "@config/*": ["src/config/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@providers/*": ["src/providers/*"],
+      "@containers/*": ["src/containers/*"],
+      "@services/*": ["src/services/*"]
+    }
+  },
+  "include": ["src/**/*", "**/*.tsx", "types/**/*.ts"],
+  "exclude": ["node_modules"]
+}
