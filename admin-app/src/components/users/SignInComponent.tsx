@@ -65,7 +65,7 @@ export const SignInComponent = (): ReactElement => {
         //   password: rsaEncrypt(password),
         // };
         await signIn(login);
-        await navigate('/dashboard');
+        await navigate('/');
       }
     } catch (e: unknown) {
       if (e instanceof AxiosError) toast.message(e.message, 'error');
@@ -78,9 +78,6 @@ export const SignInComponent = (): ReactElement => {
     if (account.length === 0) {
       toast.message(VALIDATION_MESSAGE.EMPTY_ID_INPUT, 'error');
       return;
-    } else if (!validationCheck(account, 'account')) {
-      toast.message(VALIDATION_MESSAGE.DOES_NOT_MATCH_ID_FORMAT, 'error');
-      return;
     }
 
     if (password.length === 0) {
@@ -90,7 +87,6 @@ export const SignInComponent = (): ReactElement => {
       toast.message(VALIDATION_MESSAGE.DOES_NOT_MATCH_PASSWORD_FORMAT, 'error');
       return;
     }
-
     result = true;
     return result;
   };

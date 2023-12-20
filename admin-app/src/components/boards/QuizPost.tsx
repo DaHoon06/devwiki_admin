@@ -1,5 +1,5 @@
 import React, {ReactElement, useState} from "react";
-import {InsertQuizData, Quiz} from "@interfaces/Quiz";
+import {InsertQuizData} from "@interfaces/Quiz";
 import {Typography} from "@components/common/Typography";
 import {CardUi} from "@components/ui/card/Card";
 import styled from "styled-components";

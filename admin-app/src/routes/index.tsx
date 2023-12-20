@@ -18,13 +18,13 @@ import {QuizPost} from "@components/boards/QuizPost";
 /**@description 권한 검사 모듈 */
 const AuthRoute = (): ReactElement => {
   const { user } = useAuth();
-  if (!user) return <Navigate to={'/sign-in'} replace />;
+  // if (!user) return <Navigate to={'/sign-in'} replace />;
   return <Outlet />;
 };
 
 const LoginCheckRoute = (): ReactElement => {
   const { user } = useAuth();
-  if (user) return <Navigate to={'/'} replace />;
+  // if (user) return <Navigate to={'/'} replace />;
   return <Outlet />;
 };
 
