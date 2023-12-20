@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuizLists } from '@services/queries/quizQuery';
-import { QuizListsBoard } from "@components/dashboard/QuizListsBoard";
+import { QuizListsBoard } from "@components/boards/QuizListsBoard";
 
 export interface QuizBoardProps {
   _id: string;
