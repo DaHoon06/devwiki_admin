@@ -85,7 +85,7 @@ const scroll = {
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: #1a283e;
+      background-color: #cdcdcd;
       border-radius: 0;
     }
 

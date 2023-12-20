@@ -104,33 +104,27 @@ export const QuizListsBoard = (props: Props): ReactElement => {
 
   useEffect(() => {}, [totalPage]);
   return (
-    <CardUi label={'스크립트 요청'}>
+    <CardUi label={'몰랑 퀴즈'}>
       <QuizListTable>
         <thead>
           <tr>
-            <th>SID</th>
-            <th>내용</th>
-            <th>요청자</th>
-            <th>담당자</th>
-            <th>마감일</th>
+            <th>번호</th>
+            <th>퀴즈</th>
+            <th>정답</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            <th>사용여부</th>
           </tr>
         </thead>
         <tbody>
-          {boardData.map((request) => {
+          {boardData.map((board) => {
             return (
-              <tr key={request._id}>
-                <td>{request.sid}</td>
-                <td>
-                  <div
-                    className="desc"
-                    dangerouslySetInnerHTML={{ __html: request.desc }}
-                  />
-                </td>
-                <td>{request.userName}</td>
-                <td>{request.devManager}</td>
-                <td>
-                  {request.dueDate} {request.dueTime}
-                </td>
+              <tr key={board._id}>
+                <td>{board.sid}</td>
+                <td>{board.sid}</td>
+                <td>{board.sid}</td>
+                <td>{board.sid}</td>
+                <td>{board.sid}</td>
               </tr>
             );
           })}

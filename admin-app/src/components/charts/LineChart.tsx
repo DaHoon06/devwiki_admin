@@ -2,10 +2,10 @@ import { ReactElement } from 'react';
 import { ResponsiveLine } from '@nivo/line';
 
 interface Data {
-  x: number;
+  x: string;
   y: number;
 }
-interface LineChartProps {
+export interface LineChartProps {
   id: string;
   data: Data[];
 }
@@ -31,7 +31,7 @@ export const LineChart = ({ data, legend }: DataType): ReactElement => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: '접속일',
+        legend: '날짜',
         legendOffset: 40,
         legendPosition: 'middle',
       }}
@@ -39,10 +39,11 @@ export const LineChart = ({ data, legend }: DataType): ReactElement => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: '접속자',
+        legend: '유입',
         legendOffset: -40,
         legendPosition: 'middle',
       }}
+      colors={{ scheme: 'paired' }}
       pointSize={10}
       pointColor={{ theme: 'background' }}
       pointBorderWidth={2}

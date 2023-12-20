@@ -11,6 +11,7 @@ import { RiAccountCircleFill } from 'react-icons/ri';
 import { IoLogOut } from 'react-icons/io5';
 import { Typography } from '@components/common/Typography';
 import { useAuth } from '@providers/authProvider';
+import LOGO from '@assets/images/logo.svg';
 
 const Logo = styled.div`
   @media screen and (max-width: 769px) {
@@ -27,8 +28,8 @@ export const Header = () => {
     <HeaderLayout>
       <HeaderBox>
         <Logo>
-          <Link to="/dashboard">
-            {/*<img src={LOGO} alt="pmi-logo" width={70} />*/}
+          <Link to="/">
+            <img src={LOGO} alt="pmi-logo" width={70} />
           </Link>
         </Logo>
         <div>
@@ -40,7 +41,7 @@ export const Header = () => {
             aria-label="hamburger-button"
             onClick={onClickHandler}
           >
-            <FiAlignJustify size={24} color={'#1a283e'} />
+            <FiAlignJustify size={24} color={'#04C09E'} />
           </Button>
         </div>
       </HeaderBox>

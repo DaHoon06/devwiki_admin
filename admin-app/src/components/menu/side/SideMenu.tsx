@@ -53,8 +53,8 @@ export const SideMenu = (): ReactElement => {
           >
             <S.SideMenuTop>
               <RiFunctionFill color={isDarkMode ? '#fff' : '#222'} size={20} />
-              <Typography $variant="body1" $color="textDefault">
-                Dashboard
+              <Typography $variant="body1" $color="textDefault" $weight={'bold'}>
+                데브위키
               </Typography>
             </S.SideMenuTop>
 

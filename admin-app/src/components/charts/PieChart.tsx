@@ -7,8 +7,8 @@ interface PieChartProps {
   color: string;
 }
 
-type DataType = { data: PieChartProps[] };
-export const PieChart = ({ data }: DataType): ReactElement => {
+type DataType = { data: PieChartProps[], legend: string };
+export const PieChart = ({ data, legend }: DataType): ReactElement => {
   return (
     <ResponsivePie
       data={data}

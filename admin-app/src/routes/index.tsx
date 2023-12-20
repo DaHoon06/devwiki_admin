@@ -17,13 +17,13 @@ import { SchedulePage } from '@pages/SchedulePage';
 /**@description 권한 검사 모듈 */
 const AuthRoute = (): ReactElement => {
   const { user } = useAuth();
-  if (!user) return <Navigate to={'/'} replace />;
+  if (!user) return <Navigate to={'/sign-in'} replace />;
   return <Outlet />;
 };
 
 const LoginCheckRoute = (): ReactElement => {
   const { user } = useAuth();
-  if (user) return <Navigate to={'/dashboard'} replace />;
+  if (user) return <Navigate to={'/'} replace />;
   return <Outlet />;
 };
 
@@ -31,12 +31,12 @@ export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route element={<LoginCheckRoute />}>
-        <Route element={<Navigate to={'/'} />} />
-        <Route element={<SigninPage />} path={'/'} />
+        <Route element={<Navigate to={'/sign-in'} />} />
+        <Route element={<SigninPage />} path={'/sign-in'} />
       </Route>
       <Route element={<AuthRoute />}>
         <Route element={<Layout />}>
-          <Route element={<DashboardPage />} path={'dashboard'}>
+          <Route element={<DashboardPage />} path={'/'}>
             <Route index element={<DashboardIndex />} />
             <Route path={'mollrang'}>
               <Route element={<QuizContainer />} path={'quiz'} />
