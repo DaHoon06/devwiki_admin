@@ -1,5 +1,5 @@
 import React, {ReactElement, useState} from "react";
-import {Quiz} from "@interfaces/Quiz";
+import {InsertQuizData, Quiz} from "@interfaces/Quiz";
 import {Typography} from "@components/common/Typography";
 import {CardUi} from "@components/ui/card/Card";
 import styled from "styled-components";
@@ -26,8 +26,8 @@ const InsertQuizBox = styled.div`
 `;
 
 export const QuizPost = (): ReactElement => {
-  const [quiz, setQuiz] = useState<Quiz.InsertData[]>([]);
-  const [inputValue, setInputValue] = useState<Quiz.InsertData>({question: '', answer: '', prefix: '', suffix: ''})
+  const [quiz, setQuiz] = useState<InsertQuizData[]>([]);
+  const [inputValue, setInputValue] = useState<InsertQuizData>({question: '', answer: '', prefix: '', suffix: ''})
   const {question,prefix, suffix,answer} = inputValue;
   const mutate = useAddQuiz();
 
