@@ -2,7 +2,8 @@ export const QueryKeys = {
   Mutation: {
     SignIn: 'MUTATION_SIGN_IN_KEY',
     Quiz: {
-      InsertMany: 'INSERT_MANY_QUIZ_KEY'
+      InsertMany: 'INSERT_MANY_QUIZ_KEY',
+      Delete: 'DELETE_QUIZ_KEY'
     }
   },
   appointments: 'CALENDAR-KEY',
