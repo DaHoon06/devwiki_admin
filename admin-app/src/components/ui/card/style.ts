@@ -5,7 +5,6 @@ export const CardLayout = styled.aside`
   border: 1px solid ${({ theme }) => theme.colors.GRAY_500};
   border-radius: 4px;
   width: 100%;
-  min-width: 400px;
   max-width: 100%;
   height: auto;
   min-height: auto;
