@@ -6,6 +6,7 @@ import {
   NotFoundException,
 } from '@utils/error/errorHandler';
 import { LOCAL_HOST_API, PRODUCT_HOST_API, IS_PRODUCTION } from '@config/index';
+import { STORAGE_TOKEN_KEY } from '@providers/authProvider';
 
 const baseURL = IS_PRODUCTION ? PRODUCT_HOST_API : LOCAL_HOST_API;
 const instance: AxiosInstance = axios.create({
@@ -33,9 +34,9 @@ function AxiosAuthInterceptor<T>(response: AxiosResponse<T>): AxiosResponse {
 
 instance.interceptors.request.use((config) => {
   const { headers } = config;
-  const user = window.localStorage.getItem('user');
-  if (user) {
-    const accessToken = JSON.parse(user).accessToken;
+  const tokens = window.localStorage.getItem(STORAGE_TOKEN_KEY);
+  if (tokens) {
+    const accessToken = JSON.parse(tokens).accessToken;
     headers.Authorization = `Bearer ${accessToken}`;
   }
   return config;
