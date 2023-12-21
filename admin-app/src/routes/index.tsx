@@ -13,18 +13,18 @@ import { QuizContainer } from '@containers/QuizContainer';
 import { useAuth } from '@providers/authProvider';
 import { ReactElement } from 'react';
 import { SchedulePage } from '@pages/SchedulePage';
-import {QuizPost} from "@components/boards/quiz/QuizPost";
+import { QuizPost } from '@components/boards/quiz/QuizPost';
 
 /**@description 권한 검사 모듈 */
 const AuthRoute = (): ReactElement => {
   const { user } = useAuth();
-  // if (!user) return <Navigate to={'/sign-in'} replace />;
+  if (!user) return <Navigate to={'/sign-in'} replace />;
   return <Outlet />;
 };
 
 const LoginCheckRoute = (): ReactElement => {
   const { user } = useAuth();
-  // if (user) return <Navigate to={'/'} replace />;
+  if (user) return <Navigate to={'/'} replace />;
   return <Outlet />;
 };
 

@@ -10,7 +10,7 @@ import { useAuth } from '@providers/authProvider';
 import toast from '@components/common/toast/ToastHandler';
 import { AxiosError } from 'axios';
 import { VALIDATION_MESSAGE } from '../../common/validationMessage';
-import {RequestSignIn} from "@interfaces/response.user";
+import { RequestSignIn } from '@interfaces/response.user';
 
 const SignInForm = styled.form`
   display: flex;
@@ -41,7 +41,10 @@ const ButtonWrapper = styled.div`
 `;
 
 export const SignInComponent = (): ReactElement => {
-  const [login, setLogin] = useState<RequestSignIn>({ account: '', password: '' });
+  const [login, setLogin] = useState<RequestSignIn>({
+    account: '',
+    password: '',
+  });
   const { account, password } = login;
   const navigate = useNavigate();
   const { signIn } = useAuth();
@@ -65,7 +68,7 @@ export const SignInComponent = (): ReactElement => {
         //   password: rsaEncrypt(password),
         // };
         await signIn(login);
-        await navigate('/');
+        // await navigate('/');
       }
     } catch (e: unknown) {
       if (e instanceof AxiosError) toast.message(e.message, 'error');
