@@ -1,7 +1,6 @@
 import { CardUi } from '@components/ui/card/Card';
-import React, { ReactElement, useState } from 'react';
-import { QuizBoardProps } from '@containers/QuizContainer';
-import { Quiz } from '@interfaces/Quiz';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { Quiz, UpdateQuiz } from '@interfaces/Quiz';
 import { Link } from 'react-router-dom';
 import { useDeleteQuiz } from '@services/mutation/useQuizMutation';
 import * as S from './QuizListsBoard.style';
@@ -13,7 +12,7 @@ import { MdDelete } from 'react-icons/md';
 import { Button } from '@components/common/Button';
 
 interface Props {
-  boardData: QuizBoardProps[];
+  boardData: Quiz[];
   totalPage: number;
   pagination: (next: boolean, page: number) => void;
 }
@@ -113,9 +112,15 @@ export const QuizListsBoard = (props: Props): ReactElement => {
   const [currentPage, setCurrentPage] = useState(1);
   const [deleteCheckbox, setDeleteCheckbox] = useState<number[]>([]);
   const [updateQuizId, setUpdateQuizId] = useState(-1);
+  const [inputState, setInputState] = useState<UpdateQuiz[]>([]);
   // const { data, isLoading } = useQuizLists({limit: 0, offset: 0});
   const deleteQuizMutate = useDeleteQuiz();
   // if (isLoading) return null;
+
+  useEffect(() => {
+    setInputState((prevState) => [...prevState, ...mock]);
+  }, [mock]);
+
   const onClickPaginationHandler = (page: number) => {
     setCurrentPage(page);
     pagination(true, page);
@@ -144,6 +149,30 @@ export const QuizListsBoard = (props: Props): ReactElement => {
     const arr: number[] = [];
     if (checked) mock.forEach((board) => arr.push(+board.quizId));
     setDeleteCheckbox(arr);
+  };
+
+  const onChangeInputValue = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    quizId: number
+  ) => {
+    const { value, name } = e.target;
+    setInputState(
+      inputState.map((quiz) => {
+        if (quiz.quizId === quizId) {
+          return {
+            ...quiz,
+            [name]: value,
+          };
+        }
+        return {
+          ...quiz,
+        };
+      })
+    );
+  };
+
+  const inputDisabledCheck = (quizId: number): boolean => {
+    return updateQuizId !== quizId;
   };
 
   const Pagination = (): ReactElement => {
@@ -202,7 +231,7 @@ export const QuizListsBoard = (props: Props): ReactElement => {
               <input
                 type={'checkbox'}
                 onChange={onChangeCheckboxAllSelected}
-                checked={deleteCheckbox.length === mock.length}
+                checked={deleteCheckbox.length === inputState.length}
               />
             </th>
             <th>퀴즈</th>
@@ -211,7 +240,7 @@ export const QuizListsBoard = (props: Props): ReactElement => {
           </tr>
         </thead>
         <tbody>
-          {mock.map((board) => {
+          {inputState.map((board) => {
             return (
               <tr
                 key={board.quizId}
@@ -240,8 +269,10 @@ export const QuizListsBoard = (props: Props): ReactElement => {
                       </Typography>
                       <input
                         type={'text'}
+                        name={'question'}
                         value={board.question}
-                        disabled={updateQuizId !== board.quizId}
+                        disabled={inputDisabledCheck(board.quizId)}
+                        onChange={(e) => onChangeInputValue(e, board.quizId)}
                       />
                     </label>
                   </div>
@@ -259,7 +290,9 @@ export const QuizListsBoard = (props: Props): ReactElement => {
                       <input
                         type={'text'}
                         value={board.prefix}
-                        disabled={updateQuizId !== board.quizId}
+                        name={'prefix'}
+                        disabled={inputDisabledCheck(board.quizId)}
+                        onChange={(e) => onChangeInputValue(e, board.quizId)}
                       />
                     </label>
                     <label>
@@ -273,7 +306,9 @@ export const QuizListsBoard = (props: Props): ReactElement => {
                       <input
                         type={'text'}
                         value={board.answer}
-                        disabled={updateQuizId !== board.quizId}
+                        name={'answer'}
+                        disabled={inputDisabledCheck(board.quizId)}
+                        onChange={(e) => onChangeInputValue(e, board.quizId)}
                       />
                     </label>
                     <label>
@@ -287,28 +322,32 @@ export const QuizListsBoard = (props: Props): ReactElement => {
                       <input
                         type={'text'}
                         value={board.suffix}
-                        disabled={updateQuizId !== board.quizId}
+                        name={'suffix'}
+                        disabled={inputDisabledCheck(board.quizId)}
+                        onChange={(e) => onChangeInputValue(e, board.quizId)}
                       />
                     </label>
                   </div>
                 </td>
                 <td>
-                  {updateQuizId === board.quizId ? (
-                    <button
+                  {!inputDisabledCheck(board.quizId) ? (
+                    <Button
+                      variant={'icon'}
                       type={'button'}
                       onClick={() => onClickUpdateQuizHandler(board.quizId)}
                     >
                       저장
                       <AiFillSave size={24} />
-                    </button>
+                    </Button>
                   ) : (
-                    <button
+                    <Button
+                      variant={'icon'}
                       type={'button'}
                       onClick={() => onClickUpdateQuizHandler(board.quizId)}
                     >
                       수정
                       <HiPencilAlt size={24} />
-                    </button>
+                    </Button>
                   )}
                 </td>
               </tr>

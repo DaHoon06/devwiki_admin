@@ -1,19 +1,6 @@
 import { useState } from 'react';
 import { useQuizLists } from '@services/queries/quizQuery';
-import { QuizListsBoard } from "@components/boards/quiz/QuizListsBoard";
-
-export interface QuizBoardProps {
-  _id: string;
-  desc: string;
-  sid: string;
-  userId: string;
-  userName: string;
-  devManager: string;
-  dueDate: string;
-  dueTime: string;
-  date: string;
-  tool: string;
-}
+import { QuizListsBoard } from '@components/boards/quiz/QuizListsBoard';
 
 export const QuizContainer = () => {
   const [page, setPage] = useState(1);
@@ -24,10 +11,6 @@ export const QuizContainer = () => {
   };
 
   return (
-    <QuizListsBoard
-      boardData={[]}
-      totalPage={10}
-      pagination={pageHandler}
-    />
+    <QuizListsBoard boardData={[]} totalPage={10} pagination={pageHandler} />
   );
 };
