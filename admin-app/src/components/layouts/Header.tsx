@@ -54,7 +54,7 @@ const ProfileBox = styled.div`
   align-items: center;
   column-gap: 0.3em;
 `;
-const User = (): ReactElement => {
+export const User = (): ReactElement => {
   const [userName, setUserName] = useState('');
   const { signOut } = useAuth();
 
@@ -82,9 +82,9 @@ const User = (): ReactElement => {
       <Typography $color={'textGray000'} $weight="light">
         {userName}
       </Typography>
-      {/*<button onClick={logout} type="button">*/}
-      {/*  <IoLogOut size={30} color={'#bdbdbd'} />*/}
-      {/*</button>*/}
+      <button onClick={logout} type="button">
+        <IoLogOut size={30} color={'#bdbdbd'} />
+      </button>
     </ProfileBox>
   );
 };

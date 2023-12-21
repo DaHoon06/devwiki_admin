@@ -14,7 +14,8 @@ export const SideMenuContainer = styled(motion.aside)`
 `;
 
 export const SideMenuBody = styled(motion.div)`
-  background: #1a283e;
+  background-color: ${({ theme }) => theme.colors.bg.primary};
+  border-color: ${({ theme }) => theme.colors.GRAY_500};
   height: 100%;
   width: 50vw;
   max-width: 200px;
@@ -25,6 +26,22 @@ export const ButtonWrapper = styled.div`
   height: 60px;
   display: flex;
   align-items: flex-start;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 1em;
+`;
+
+export const SideMenuBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100% - 120px);
+`;
+
+export const DarkModeOptionBox = styled.div`
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1em;
+  border-top: 1px solid ${({ theme }) => theme.colors.GRAY_500};
 `;

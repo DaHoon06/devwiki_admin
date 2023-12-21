@@ -57,8 +57,8 @@ export const GlobalStyle = createGlobalStyle`
     color: var(--textDefault);
     transition: background 0.2s ease-in, color 0.2s ease-in;
     width: 100%;
+    height: 100%;
     padding: 0;
-
     ${({ theme }) => theme.scroll.theme()}
   }
 

@@ -6,12 +6,17 @@ import { MenuLists } from '../item/MenuLists';
 import { menuLists } from '@config/menuLink';
 import * as S from './style';
 import useMenuHook from '@hooks/useMenuHook';
+import { RiFunctionFill } from 'react-icons/ri';
+import { Typography } from '@components/common/Typography';
+import useTheme from '@hooks/useTheme';
+import { ToggleSwitchButton } from '@components/common/buttons/toggle/ToggleSwitch';
+import { User } from '@components/layouts/Header';
 
 export const SlideMenu = (props: any): ReactElement => {
   const { isOpen, ele } = props;
   const { onRequestClose, outerClickEvent } = useMenuHook(ele);
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
-
+  const { toggleTheme, isDarkMode } = useTheme();
   useEffect(() => {
     const resizeListener = () => {
       setInnerWidth(window.innerWidth);
@@ -64,21 +69,40 @@ export const SlideMenu = (props: any): ReactElement => {
             ref={ele}
           >
             <S.ButtonWrapper>
+              <div>
+                <RiFunctionFill
+                  color={isDarkMode ? '#fff' : '#222'}
+                  size={20}
+                />
+                <Typography as="span" $color="textDefault" $weight={'bold'}>
+                  데브위키
+                </Typography>
+              </div>
               <Button
                 onClick={onRequestClose}
                 type="button"
                 variant="icon"
                 aria-label="slide-menu-close-button"
               >
-                <FiLogIn size={22} color={'#fff'} />
+                <FiLogIn size={22} color={isDarkMode ? '#fff' : '#222'} />
               </Button>
             </S.ButtonWrapper>
+
             <div>
-              <div>전다훈 님</div>
-              <div>로그아웃</div>
+              <User />
             </div>
             <hr />
-            <MenuLists dropdownLists={menuLists} />
+            <S.SideMenuBox>
+              <div>
+                <MenuLists dropdownLists={menuLists} />
+              </div>
+              <S.DarkModeOptionBox>
+                <Typography $variant="body1" $color="textDefault">
+                  Dark Mode
+                </Typography>
+                <ToggleSwitchButton mode={isDarkMode} onClick={toggleTheme} />
+              </S.DarkModeOptionBox>
+            </S.SideMenuBox>
           </S.SideMenuBody>
         </S.SideMenuContainer>
       )}
