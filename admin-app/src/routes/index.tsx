@@ -13,7 +13,7 @@ import { QuizContainer } from '@containers/QuizContainer';
 import { useAuth } from '@providers/authProvider';
 import { ReactElement } from 'react';
 import { SchedulePage } from '@pages/SchedulePage';
-import {QuizPost} from "@components/boards/QuizPost";
+import {QuizPost} from "@components/boards/quiz/QuizPost";
 
 /**@description 권한 검사 모듈 */
 const AuthRoute = (): ReactElement => {

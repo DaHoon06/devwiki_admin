@@ -1,73 +1,12 @@
 import { CardUi } from '@components/ui/card/Card';
 import React, { ReactElement, useState } from 'react';
 import { QuizBoardProps } from '@containers/QuizContainer';
-import styled from 'styled-components';
 import {Quiz} from "@interfaces/Quiz";
 import {Link} from "react-router-dom";
-import {Typography} from "@components/common/Typography";
 import {useDeleteQuiz} from "@services/mutation/useQuizMutation";
+import * as S from './QuizListsBoard.style';
+import {Typography} from "@components/common/Typography";
 
-const QuizListTable = styled.table`
-  width: 100%;
-  height: 100%;
-
-  thead > tr {
-    text-align: center;
-
-    th {
-      padding-bottom: 1em;
-    }
-  }
-
-  tbody > tr {
-    border-top: 1px solid ${({ theme }) => theme.colors.GRAY_300};
-    border-bottom: 1px solid ${({ theme }) => theme.colors.GRAY_300};
-    text-align: center;
-    &:hover {
-      background-color: #1a283e;
-      cursor: pointer;
-      color: white !important;
-    }
-  }
-  tbody > tr > td {
-    padding: 1.25em 0;
-    .desc {
-      overflow: hidden;
-      width: 276px;
-      height: 1.25rem;
-      text-align: left;
-      word-wrap: break-word;
-      display: -webkit-box;
-      -webkit-line-clamp: 1;
-    }
-  }
-`;
-
-const PaginationLists = styled.ul`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1em 0;
-`;
-
-const PaginationItems = styled.li`
-  border: 1px solid transparent;
-  display: flex;
-  &:hover {
-    cursor: pointer;
-  }
-
-  & button {
-    height: 100%;
-    color: ${({ theme }) => theme.colors.GRAY_200};
-
-    &.active {
-      font-weight: bold;
-      color: ${({ theme }) => theme.colors.PRIMARY};
-    }
-  }
-`;
 
 interface Props {
   boardData: QuizBoardProps[];
@@ -92,6 +31,7 @@ export const QuizListsBoard = (props: Props): ReactElement => {
   const { boardData, totalPage, pagination } = props;
   const [currentPage, setCurrentPage] = useState(1);
   const [deleteCheckbox, setDeleteCheckbox] = useState<number[]>([]);
+
 // const { data, isLoading } = useQuizLists({limit: 0, offset: 0});
   const deleteQuizMutate = useDeleteQuiz();
   // if (isLoading) return null;
@@ -102,8 +42,15 @@ export const QuizListsBoard = (props: Props): ReactElement => {
 
   const onChangeCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {value} = e.target;
-    if (!deleteCheckbox.includes(+value)) setDeleteCheckbox([...deleteCheckbox, +value]);
+    if (!deleteCheckbox.includes(+value)) setDeleteCheckbox((prev) => [...prev, +value]);
     else setDeleteCheckbox(deleteCheckbox.filter(id => id !== +value));
+  }
+
+  const onChangeCheckboxAllSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {checked} = e.target;
+    const arr: number[] = [];
+    if (checked) mock.forEach(board => arr.push(+board.quizId));
+    setDeleteCheckbox(arr);
   }
 
   const onClickDeleteQuiz = async () => {
@@ -125,15 +72,15 @@ export const QuizListsBoard = (props: Props): ReactElement => {
       );
     }
     return (
-      <PaginationLists>
+      <S.PaginationLists>
         {group.map((pageButtonElement, index) => {
           return (
-            <PaginationItems key={`pagination-${index}`}>
+            <S.PaginationItems key={`pagination-${index}`}>
               {pageButtonElement}
-            </PaginationItems>
+            </S.PaginationItems>
           );
         })}
-      </PaginationLists>
+      </S.PaginationLists>
     );
   };
 
@@ -147,13 +94,14 @@ export const QuizListsBoard = (props: Props): ReactElement => {
           선택 삭제
         </button>
       </div>
-      <QuizListTable>
+      <S.QuizListTable>
         <thead>
           <tr>
-            <th>번호</th>
+            <th>
+              <input type={"checkbox"} onChange={onChangeCheckboxAllSelected} checked={deleteCheckbox.length === mock.length} />
+            </th>
             <th>퀴즈</th>
             <th>정답</th>
-            <th>작성자</th>
             <th>작성일</th>
             <th>비고</th>
           </tr>
@@ -163,30 +111,44 @@ export const QuizListsBoard = (props: Props): ReactElement => {
             return (
               <tr key={board.quizId}>
                 <td>
-                  {board.quizId+1}
+                  <label htmlFor={`check-label-${board.quizId}`}>
+                    <input checked={deleteCheckbox.includes(+board.quizId)} type={"checkbox"} value={board.quizId} id={`check-label-${board.quizId}`} onChange={onChangeCheckbox} />
+                  </label>
                 </td>
                 <td>
                   <input type={'text'} value={board.question} disabled={true} />
                 </td>
                 <td>
-                  <input type={'text'} value={board.prefix} disabled={true} />
-                  <input type={'text'} value={board.answer} disabled={true} />
-                  <input type={'text'} value={board.suffix} disabled={true} />
+                  <div className={'answer_input_box'}>
+                    <label>
+                      <Typography as={'span'} $color={"textGray200"} $weight={'medium'}>
+                        Prefix
+                      </Typography>
+                      <input type={'text'} value={board.prefix} disabled={true} />
+                    </label>
+                    <label>
+                      <Typography as={'span'} $color={"textGray200"} $weight={'medium'}>
+                        Answer
+                      </Typography>
+                      <input type={'text'} value={board.answer} disabled={true} />
+                    </label>
+                    <label>
+                      <Typography as={'span'} $color={"textGray200"} $weight={'medium'}>
+                        Suffix
+                      </Typography>
+                      <input type={'text'} value={board.suffix} disabled={true} />
+                    </label>
+                  </div>
                 </td>
-                <td>전다훈</td>
                 <td>{board.created_at.getFullYear()}</td>
                 <td>
                   <button>수정</button>
-                  <label htmlFor={`check-label-${board.quizId}`}>
-                    삭제
-                    <input checked={deleteCheckbox.includes(+board.quizId)} type={"checkbox"} value={board.quizId} id={`check-label-${board.quizId}`} onChange={onChangeCheckbox} />
-                  </label>
                 </td>
               </tr>
             );
           })}
         </tbody>
-      </QuizListTable>
+      </S.QuizListTable>
       <Pagination />
     </CardUi>
   );
