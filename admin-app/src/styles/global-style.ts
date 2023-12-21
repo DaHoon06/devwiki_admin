@@ -58,7 +58,7 @@ export const GlobalStyle = createGlobalStyle`
     transition: background 0.2s ease-in, color 0.2s ease-in;
     width: 100%;
     padding: 0;
-    
+
     ${({ theme }) => theme.scroll.theme()}
   }
 
@@ -137,7 +137,7 @@ export const GlobalStyle = createGlobalStyle`
     --textRed000: #FF5050;
     --textGrayAndWhite: #bdbdbd;
     --textYellow: #edbe17;
-    
+
     --bg_primary: #fff;
     --bg_side_menu: #FFFFFFC4;
   }
