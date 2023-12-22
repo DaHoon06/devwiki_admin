@@ -9,11 +9,11 @@ import { Layout } from '@components/layouts/Layout';
 import { DashboardPage } from '@pages/dashboard/DashboardPage';
 import { DashboardIndex } from '@components/dashboard/Dashbord';
 import { SigninPage } from '@pages/home/SignInPage';
-import { QuizContainer } from '@containers/QuizContainer';
 import { useAuth } from '@providers/authProvider';
 import { ReactElement } from 'react';
 import { SchedulePage } from '@pages/SchedulePage';
 import { QuizPost } from '@components/boards/quiz/QuizPost';
+import { QuizListsBoard } from '@components/boards/quiz/QuizListsBoard';
 
 /**@description 권한 검사 모듈 */
 const AuthRoute = (): ReactElement => {
@@ -40,8 +40,7 @@ export const router = createBrowserRouter(
           <Route element={<DashboardPage />} path={'/'}>
             <Route index element={<DashboardIndex />} />
             <Route path={'mollrang'}>
-              <Route element={<QuizContainer />} path={'quiz'} />
-              <Route element={<QuizContainer />} path={'quiz/:postId'} />
+              <Route element={<QuizListsBoard />} path={'quiz'} />
               <Route element={<QuizPost />} path={'quiz/post'} />
             </Route>
             <Route path={'schedule'} element={<SchedulePage />} />
