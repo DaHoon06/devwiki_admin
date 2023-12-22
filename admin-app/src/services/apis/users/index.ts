@@ -1,5 +1,6 @@
 import { axiosInstance } from '@libs/Axios';
 import { RequestSignIn } from '@interfaces/response.user';
+import { responseDataConvert } from '@utils/convert';
 
 export interface ResponseData {
   accessToken: string;
@@ -22,11 +23,16 @@ export const SignInApi = async (payload: RequestSignIn) => {
       '/sign-in/admin',
       payload
     );
-    const { data: tokens } = data.result;
-    return {
-      accessToken: tokens.accessToken,
-      refreshToken: tokens.refreshToken,
-    };
+    const result = responseDataConvert<ResponseData>(data);
+
+    if (result) {
+      const { accessToken, refreshToken } = result;
+      return {
+        accessToken,
+        refreshToken,
+      };
+    }
+    return null;
   } catch (e) {
     throw e;
   }

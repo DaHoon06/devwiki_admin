@@ -28,6 +28,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const signIn = async (loginData: RequestSignIn) => {
     const payload = await SignInApi(loginData);
+    if (!payload) throw new Error('로그인 정보를 다시 확인해 주세요.');
     setStorageItems(STORAGE_TOKEN_KEY, payload);
     setUser(payload);
   };
