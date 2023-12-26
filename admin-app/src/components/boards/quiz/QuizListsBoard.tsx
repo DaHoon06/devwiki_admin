@@ -10,120 +10,24 @@ import { HiPencilAlt } from 'react-icons/hi';
 import { FaPlus } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import { Button } from '@components/common/Button';
+import { useQuizLists } from '@services/queries/quizQuery';
 
-interface Props {
-  boardData: Quiz[];
-  totalPage: number;
-  pagination: (next: boolean, page: number) => void;
-}
-
-const mock: Quiz[] = [
-  {
-    quizId: 0,
-    question: '퀴즈1',
-    answer: '정답',
-    prefix: '1',
-    suffix: '',
-    created_at: new Date(),
-  },
-  {
-    quizId: 1,
-    question: '퀴즈2',
-    answer: '정답',
-    prefix: '',
-    suffix: '1',
-    created_at: new Date(),
-  },
-  {
-    quizId: 2,
-    question: '퀴즈3',
-    answer: '정답',
-    prefix: '2',
-    suffix: '2',
-    created_at: new Date(),
-  },
-  {
-    quizId: 3,
-    question: '퀴즈4',
-    answer: '정답',
-    prefix: '3',
-    suffix: '',
-    created_at: new Date(),
-  },
-  {
-    quizId: 4,
-    question: '퀴즈5',
-    answer: '정답',
-    prefix: '3',
-    suffix: '',
-    created_at: new Date(),
-  },
-  {
-    quizId: 5,
-    question: '퀴즈6',
-    answer: '정답',
-    prefix: '3',
-    suffix: '',
-    created_at: new Date(),
-  },
-  {
-    quizId: 6,
-    question: '퀴즈7',
-    answer: '정답',
-    prefix: '4',
-    suffix: 'a',
-    created_at: new Date(),
-  },
-  {
-    quizId: 7,
-    question: '퀴즈8',
-    answer: '정답',
-    prefix: 'a',
-    suffix: '1',
-    created_at: new Date(),
-  },
-  {
-    quizId: 8,
-    question: '퀴즈9',
-    answer: '정답',
-    prefix: 'cv',
-    suffix: 's',
-    created_at: new Date(),
-  },
-  {
-    quizId: 9,
-    question: '퀴즈10',
-    answer: '정답',
-    prefix: 'a',
-    suffix: 'a',
-    created_at: new Date(),
-  },
-  {
-    quizId: 10,
-    question: '퀴즈11',
-    answer: '정답',
-    prefix: '1',
-    suffix: 'd',
-    created_at: new Date(),
-  },
-];
-export const QuizListsBoard = (props: Props): ReactElement => {
-  const { boardData, totalPage, pagination } = props;
+export const QuizListsBoard = (): ReactElement => {
   const [currentPage, setCurrentPage] = useState(1);
   const [deleteCheckbox, setDeleteCheckbox] = useState<number[]>([]);
   const [updateQuizId, setUpdateQuizId] = useState(-1);
   const [inputState, setInputState] = useState<UpdateQuiz[]>([]);
-  // const { data, isLoading } = useQuizLists({limit: 0, offset: 0});
+  const { data, isLoading } = useQuizLists({ limit: 10, offset: 0 });
   const deleteQuizMutate = useDeleteQuiz();
+
   // if (isLoading) return null;
 
   useEffect(() => {
-    setInputState((prevState) => [...prevState, ...mock]);
-  }, [mock]);
+    // if (boardData) setInputState((prevState) => [...prevState, ...boardData]);
+  }, [data]);
 
   const onClickPaginationHandler = (page: number) => {
     setCurrentPage(page);
-    pagination(true, page);
   };
 
   const onClickUpdateQuizHandler = (quizId: number) => {
@@ -147,7 +51,7 @@ export const QuizListsBoard = (props: Props): ReactElement => {
   ) => {
     const { checked } = e.target;
     const arr: number[] = [];
-    if (checked) mock.forEach((board) => arr.push(+board.quizId));
+    if (checked) inputState.forEach((board) => arr.push(+board.quizId));
     setDeleteCheckbox(arr);
   };
 
@@ -177,7 +81,7 @@ export const QuizListsBoard = (props: Props): ReactElement => {
 
   const Pagination = (): ReactElement => {
     const group = [];
-    for (let i = 0; i < totalPage; i++) {
+    for (let i = 0; i < data.totalPage; i++) {
       const page = i + 1;
       group.push(
         <button

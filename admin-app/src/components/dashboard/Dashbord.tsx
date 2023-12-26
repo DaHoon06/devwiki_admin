@@ -1,76 +1,78 @@
-import React, {ReactElement, useState} from 'react';
+import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
-import { QuizContainer } from '@containers/QuizContainer';
-import {LineChart, LineChartProps} from "@components/charts/LineChart";
-import {CardUi} from "@components/ui/card/Card";
-import {PieChart} from "@components/charts/PieChart";
+import { LineChart, LineChartProps } from '@components/charts/LineChart';
+import { CardUi } from '@components/ui/card/Card';
+import { PieChart } from '@components/charts/PieChart';
+import { QuizListsBoard } from '@components/boards/quiz/QuizListsBoard';
 
-const sampleLine: LineChartProps[] = [{
-  id: "사용자",
-  data: [
-    {
-      x: "2023-12-12",
-      y: 215
-    },
-    {
-      x: "2023-12-13",
-      y: 120
-    },
-    {
-      x: "2023-12-14",
-      y: 130
-    },
-    {
-      x: "2023-12-15",
-      y: 227
-    },
-    {
-      x: "2023-12-16",
-      y: 238
-    },
-    {
-      x: "2023-12-17",
-      y: 44
-    },
-    {
-      x: "2023-12-18",
-      y: 67
-    }
-  ]
-}];
+const sampleLine: LineChartProps[] = [
+  {
+    id: '사용자',
+    data: [
+      {
+        x: '2023-12-12',
+        y: 215,
+      },
+      {
+        x: '2023-12-13',
+        y: 120,
+      },
+      {
+        x: '2023-12-14',
+        y: 130,
+      },
+      {
+        x: '2023-12-15',
+        y: 227,
+      },
+      {
+        x: '2023-12-16',
+        y: 238,
+      },
+      {
+        x: '2023-12-17',
+        y: 44,
+      },
+      {
+        x: '2023-12-18',
+        y: 67,
+      },
+    ],
+  },
+];
 
 const samplePie = [
   {
-    "id": "1 번째",
-    "label": "1 번째",
-    "value": 87,
-    "color": "hsl(67, 70%, 50%)"
+    id: '1 번째',
+    label: '1 번째',
+    value: 87,
+    color: 'hsl(67, 70%, 50%)',
   },
   {
-    "id": "2 번째",
-    "label": "2 번째",
-    "value": 359,
-    "color": "hsl(329, 70%, 50%)"
+    id: '2 번째',
+    label: '2 번째',
+    value: 359,
+    color: 'hsl(329, 70%, 50%)',
   },
   {
-    "id": "3 번째",
-    "label": "3 번째",
-    "value": 57,
-    "color": "hsl(258, 70%, 50%)"
+    id: '3 번째',
+    label: '3 번째',
+    value: 57,
+    color: 'hsl(258, 70%, 50%)',
   },
   {
-    "id": "4 번째",
-    "label": "4 번째",
-    "value": 456,
-    "color": "hsl(195, 70%, 50%)"
+    id: '4 번째',
+    label: '4 번째',
+    value: 456,
+    color: 'hsl(195, 70%, 50%)',
   },
   {
-    "id": "5 번째",
-    "label": "5 번째",
-    "value": 600,
-    "color": "hsl(247, 70%, 50%)"
-  }
-]
+    id: '5 번째',
+    label: '5 번째',
+    value: 600,
+    color: 'hsl(247, 70%, 50%)',
+  },
+];
 
 const ItemBox = styled.div`
   display: flex;
@@ -164,7 +166,7 @@ export const DashboardIndex = (): ReactElement => {
         </CardUi>
       </ItemBox>
       <QuizBox>
-        <QuizContainer />
+        <QuizListsBoard />
       </QuizBox>
     </div>
   );

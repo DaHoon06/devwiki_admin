@@ -1,16 +1,15 @@
 import useLocalStorage from '@hooks/useLocalStorage';
 import React, { ReactNode, useState } from 'react';
-import { UserKey } from '@type/storage.type';
 import { RequestSignIn } from '@interfaces/response.user';
-import { SignInApi } from '@services/apis/users';
+import { ResponseData, SignInApi } from '@services/apis/users';
 
 type AuthContextType = {
-  user: UserKey | null;
+  user: ResponseData | null;
   signIn: (loginData: RequestSignIn) => void;
   signOut: () => void;
 };
 export const STORAGE_USER_KEY = 'user' as const;
-
+export const STORAGE_TOKEN_KEY = 'tokens' as const;
 export const AuthContext = React.createContext<AuthContextType>(null!);
 
 export const useAuth = () => {
@@ -19,8 +18,8 @@ export const useAuth = () => {
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const { getStorageItems, removeStorageItems, setStorageItems } =
-    useLocalStorage<UserKey>();
-  const [user, setUser] = useState(getStorageItems(STORAGE_USER_KEY));
+    useLocalStorage<ResponseData>();
+  const [user, setUser] = useState(getStorageItems(STORAGE_TOKEN_KEY));
 
   const signOut = () => {
     setUser(null);
@@ -29,11 +28,9 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const signIn = async (loginData: RequestSignIn) => {
     const payload = await SignInApi(loginData);
-    if (payload) {
-      setStorageItems(STORAGE_USER_KEY, payload);
-      setUser(payload);
-    }
-
+    if (!payload) throw new Error('로그인 정보를 다시 확인해 주세요.');
+    setStorageItems(STORAGE_TOKEN_KEY, payload);
+    setUser(payload);
   };
 
   const value = {
