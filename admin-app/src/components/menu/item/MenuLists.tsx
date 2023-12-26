@@ -72,8 +72,8 @@ export const MenuLists = (props: Props): ReactElement => {
                   <S.DropdownLists>
                     {item.child.map((childItem, index) => {
                       return (
-                        <Link to={`/${item.baseLink}/${childItem.to}`}>
-                          <S.DropdownItems key={childItem.label + index}>
+                        <Link to={`/${item.baseLink}/${childItem.to}`} key={childItem.label + index}>
+                          <S.DropdownItems>
                             <Typography as={'span'}>
                               {childItem.label}
                             </Typography>
