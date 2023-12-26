@@ -11,11 +11,9 @@ export interface ResponseData<T> {
  */
 export const responseDataConvert = <T>(
   payload: ResponseData<T>
-): T | undefined => {
+): T => {
   const { success } = payload;
   // API 호출 성공
-  if (success) {
-    const { result } = payload;
-    return result.data;
-  }
+  const { result } = payload;
+  return result.data;
 };

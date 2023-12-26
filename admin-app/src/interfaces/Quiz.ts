@@ -18,3 +18,9 @@ export interface Quiz extends UpdateQuiz, DateBase {}
 
 export type InsertQuizData = QuizBase
 export type UpdateQuizData = UpdateQuiz;
+export type QuizLists = {
+  totalElement: number,
+  totalPage: number,
+  hasNext: boolean,
+  quizList: QuizBase[]
+}

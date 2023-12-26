@@ -17,7 +17,7 @@ export const QuizListsBoard = (): ReactElement => {
   const [deleteCheckbox, setDeleteCheckbox] = useState<number[]>([]);
   const [updateQuizId, setUpdateQuizId] = useState(-1);
   const [inputState, setInputState] = useState<UpdateQuiz[]>([]);
-  const { data, isLoading } = useQuizLists({ limit: 10, offset: 0 });
+  const { data, isLoading } = useQuizLists({ page: 1 });
   const deleteQuizMutate = useDeleteQuiz();
 
   // if (isLoading) return null;
@@ -81,16 +81,18 @@ export const QuizListsBoard = (): ReactElement => {
 
   const Pagination = (): ReactElement => {
     const group = [];
-    for (let i = 0; i < data.totalPage; i++) {
-      const page = i + 1;
-      group.push(
-        <button
-          className={currentPage === page ? 'active' : ''}
-          onClick={() => onClickPaginationHandler(page - 1)}
-        >
-          {page}
-        </button>
-      );
+    if (data) {
+      for (let i = 0; i < data.totalPage; i++) {
+        const page = i + 1;
+        group.push(
+          <button
+            className={currentPage === page ? 'active' : ''}
+            onClick={() => onClickPaginationHandler(page - 1)}
+          >
+            {page}
+          </button>
+        );
+      }
     }
     return (
       <S.PaginationLists>
