@@ -203,7 +203,7 @@ export const QuizListsBoard = (props: Props): ReactElement => {
 
   return (
     <CardUi label={'몰랑 퀴즈'}>
-      <S.TableHeaderOption>
+      <S.HeaderOption>
         <Button type={'button'} onClick={onClickDeleteQuizHandler}>
           <MdDelete size={16} color={'#fff'} />
           <Typography as={'span'} $color={'textWhite'} $weight={'bold'}>
@@ -223,30 +223,29 @@ export const QuizListsBoard = (props: Props): ReactElement => {
             </Typography>
           </Link>
         </div>
-      </S.TableHeaderOption>
-      <S.QuizListTable>
-        <thead>
-          <tr>
-            <th>
-              <input
-                type={'checkbox'}
-                onChange={onChangeCheckboxAllSelected}
-                checked={deleteCheckbox.length === inputState.length}
-              />
-            </th>
-            <th>퀴즈</th>
-            <th>정답</th>
-            <th>비고</th>
-          </tr>
-        </thead>
-        <tbody>
-          {inputState.map((board) => {
-            return (
-              <tr
-                key={board.quizId}
-                className={updateQuizId === board.quizId ? 'active' : ''}
-              >
-                <td>
+      </S.HeaderOption>
+      <S.QuizListLayout>
+        <S.QuizHeader>
+          <label>
+            <Typography as={'span'}>
+              전체 선택
+            </Typography>
+            <input
+              type={'checkbox'}
+              onChange={onChangeCheckboxAllSelected}
+              checked={deleteCheckbox.length === inputState.length}
+            />
+          </label>
+
+        </S.QuizHeader>
+        {inputState.map((board) => {
+          return (
+            <S.QuizBox
+              key={board.quizId}
+              className={updateQuizId === board.quizId ? 'active' : ''}
+            >
+              <div>
+                <S.QuizBoxOptions>
                   <label htmlFor={`check-label-${board.quizId}`}>
                     <input
                       checked={deleteCheckbox.includes(+board.quizId)}
@@ -256,80 +255,6 @@ export const QuizListsBoard = (props: Props): ReactElement => {
                       onChange={onChangeCheckbox}
                     />
                   </label>
-                </td>
-                <td>
-                  <div className={'answer_input_box'}>
-                    <label>
-                      <Typography
-                        as={'span'}
-                        $color={'textGray200'}
-                        $weight={'medium'}
-                      >
-                        퀴즈
-                      </Typography>
-                      <input
-                        type={'text'}
-                        name={'question'}
-                        value={board.question}
-                        disabled={inputDisabledCheck(board.quizId)}
-                        onChange={(e) => onChangeInputValue(e, board.quizId)}
-                      />
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className={'answer_input_box'}>
-                    <label>
-                      <Typography
-                        as={'span'}
-                        $color={'textGray200'}
-                        $weight={'medium'}
-                      >
-                        Prefix
-                      </Typography>
-                      <input
-                        type={'text'}
-                        value={board.prefix}
-                        name={'prefix'}
-                        disabled={inputDisabledCheck(board.quizId)}
-                        onChange={(e) => onChangeInputValue(e, board.quizId)}
-                      />
-                    </label>
-                    <label>
-                      <Typography
-                        as={'span'}
-                        $color={'textGray200'}
-                        $weight={'medium'}
-                      >
-                        Answer
-                      </Typography>
-                      <input
-                        type={'text'}
-                        value={board.answer}
-                        name={'answer'}
-                        disabled={inputDisabledCheck(board.quizId)}
-                        onChange={(e) => onChangeInputValue(e, board.quizId)}
-                      />
-                    </label>
-                    <label>
-                      <Typography
-                        as={'span'}
-                        $color={'textGray200'}
-                        $weight={'medium'}
-                      >
-                        Suffix
-                      </Typography>
-                      <input
-                        type={'text'}
-                        value={board.suffix}
-                        name={'suffix'}
-                        disabled={inputDisabledCheck(board.quizId)}
-                        onChange={(e) => onChangeInputValue(e, board.quizId)}
-                      />
-                    </label>
-                  </div>
-                </td>
-                <td>
                   {!inputDisabledCheck(board.quizId) ? (
                     <Button
                       variant={'icon'}
@@ -349,12 +274,83 @@ export const QuizListsBoard = (props: Props): ReactElement => {
                       <HiPencilAlt size={24} />
                     </Button>
                   )}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </S.QuizListTable>
+                </S.QuizBoxOptions>
+                <div>
+                  <label>
+                    <Typography
+                      as={'span'}
+                      $color={'textGray200'}
+                      $weight={'medium'}
+                    >
+                      퀴즈
+                    </Typography>
+                    <input
+                      type={'text'}
+                      name={'question'}
+                      value={board.question}
+                      disabled={inputDisabledCheck(board.quizId)}
+                      onChange={(e) => onChangeInputValue(e, board.quizId)}
+                    />
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div className={'answer_input_box'}>
+                  <label>
+                    <Typography
+                      as={'span'}
+                      $color={'textGray200'}
+                      $weight={'medium'}
+                    >
+                      Prefix
+                    </Typography>
+                    <input
+                      type={'text'}
+                      value={board.prefix}
+                      name={'prefix'}
+                      disabled={inputDisabledCheck(board.quizId)}
+                      onChange={(e) => onChangeInputValue(e, board.quizId)}
+                    />
+                  </label>
+                  <label>
+                    <Typography
+                      as={'span'}
+                      $color={'textGray200'}
+                      $weight={'medium'}
+                    >
+                      Answer
+                    </Typography>
+                    <input
+                      type={'text'}
+                      value={board.answer}
+                      name={'answer'}
+                      disabled={inputDisabledCheck(board.quizId)}
+                      onChange={(e) => onChangeInputValue(e, board.quizId)}
+                    />
+                  </label>
+                  <label>
+                    <Typography
+                      as={'span'}
+                      $color={'textGray200'}
+                      $weight={'medium'}
+                    >
+                      Suffix
+                    </Typography>
+                    <input
+                      type={'text'}
+                      value={board.suffix}
+                      name={'suffix'}
+                      disabled={inputDisabledCheck(board.quizId)}
+                      onChange={(e) => onChangeInputValue(e, board.quizId)}
+                    />
+                  </label>
+                </div>
+              </div>
+            </S.QuizBox>
+          );
+        })}
+      </S.QuizListLayout>
+
       <Pagination />
     </CardUi>
   );

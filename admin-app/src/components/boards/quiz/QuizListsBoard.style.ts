@@ -1,69 +1,66 @@
 import styled from 'styled-components';
 
-export const QuizListTable = styled.table`
-  width: 100%;
-  height: 100%;
-  scale: 0.98;
-
-  thead > tr {
-    text-align: center;
-
-    th {
-      padding-bottom: 1em;
-    }
-  }
-
-  tbody > tr {
-    border-top: 1px solid ${({ theme }) => theme.colors.GRAY_300};
-    border-bottom: 1px solid ${({ theme }) => theme.colors.GRAY_300};
-    text-align: center;
-
-    &:hover {
-      background-color: #f8f8f8;
-      cursor: pointer;
-      scale: 1;
-    }
-
-    &.active {
-      z-index: 10;
-      background: #f6f6f6;
-    }
-  }
-
-  tbody > tr > td {
-    padding: 1.25em 0;
-
-    .answer_input_box {
-      display: flex;
-      flex-direction: column;
-
-      label {
-        text-align: left;
-        width: 100%;
-      }
-
-      label > input {
-        width: 100%;
-        height: 40px;
-        padding: 0.5em 0.3em;
-        border: 1px solid #ededed;
-        border-radius: 4px;
-        color: #222;
-
-        &:disabled {
-          color: #cccccc;
-        }
-      }
-    }
-  }
-`;
-
 export const PaginationLists = styled.ul`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1em 0;
+`;
+
+export const QuizListLayout = styled.div`
+  width: 100%;
+  height: 100%;
+  scale: 0.98;
+`;
+
+export const QuizHeader = styled.div``;
+export const QuizBoxOptions = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 0.5em;
+`;
+export const QuizBox = styled.div`
+  padding: 1em 0;
+  border-top: 1px solid ${({ theme }) => theme.colors.GRAY_300};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.GRAY_300};
+
+  .quiz_title_container {
+
+    input[type='checkbox'] {
+      margin-right: 1em;
+    }
+    
+    input[type='text'] {
+      width: 100%;
+    }
+  }
+  
+  label {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &:hover {
+    background-color: #f8f8f8;
+    cursor: pointer;
+    scale: 1;
+  }
+
+  &.active {
+    z-index: 10;
+    background: #f6f6f6;
+  }
+  
+  .answer_input_box {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    
+    label {
+      width: 30%;
+    }
+  }
 `;
 
 export const PaginationItems = styled.li`
@@ -85,7 +82,7 @@ export const PaginationItems = styled.li`
   }
 `;
 
-export const TableHeaderOption = styled.div`
+export const HeaderOption = styled.div`
   display: flex;
   justify-content: space-between;
 
