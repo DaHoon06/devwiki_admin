@@ -241,7 +241,7 @@ export const QuizListsBoard = (props: Props): ReactElement => {
         {inputState.map((board) => {
           return (
             <S.QuizBox
-              key={board.quizId}
+              key={`mollrang-quiz-${board.quizId}`}
               className={updateQuizId === board.quizId ? 'active' : ''}
             >
               <div>

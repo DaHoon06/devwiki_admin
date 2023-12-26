@@ -29,8 +29,11 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const signIn = async (loginData: RequestSignIn) => {
     const payload = await SignInApi(loginData);
-    setStorageItems(STORAGE_USER_KEY, payload);
-    setUser(payload);
+    if (payload) {
+      setStorageItems(STORAGE_USER_KEY, payload);
+      setUser(payload);
+    }
+
   };
 
   const value = {

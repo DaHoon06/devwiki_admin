@@ -1,1 +1,1 @@
-export type UserKey = { accessToken: string; name: string };
+export type UserKey = { accessToken: string; refreshToken: string };

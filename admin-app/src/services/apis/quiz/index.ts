@@ -2,19 +2,15 @@ import { axiosInstance } from '@libs/Axios';
 import {InsertQuizData, UpdateQuizData} from "@interfaces/Quiz";
 
 export type QuizListRequestQuery = {
-  offset: number;
-  limit: number
+  page: number;
 }
 
 export const FindQuizListsApi = async (query: QuizListRequestQuery) => {
   try {
     const { data } = await axiosInstance.get(
-      `/admin/quizzes`,
-      { data: {
-          offset: query.offset,
-          limit: query.limit
-        }}
+      `/admin/quizzes?page=${query.page}`,
     );
+    console.log(data);
     return data;
   } catch (e) {
     throw e;
