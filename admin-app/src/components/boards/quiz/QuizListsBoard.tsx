@@ -17,13 +17,11 @@ export const QuizListsBoard = (): ReactElement => {
   const [deleteCheckbox, setDeleteCheckbox] = useState<number[]>([]);
   const [updateQuizId, setUpdateQuizId] = useState(-1);
   const [inputState, setInputState] = useState<UpdateQuiz[]>([]);
-  const { data, isLoading } = useQuizLists({ page: 1 });
+  const { data, isLoading } = useQuizLists({ page: currentPage });
   const deleteQuizMutate = useDeleteQuiz();
 
-  // if (isLoading) return null;
-
   useEffect(() => {
-    // if (boardData) setInputState((prevState) => [...prevState, ...boardData]);
+    if (data && data.quizList.length > 0) setInputState((prevState) => [...prevState, ...data.quizList]);
   }, [data]);
 
   const onClickPaginationHandler = (page: number) => {
@@ -106,6 +104,8 @@ export const QuizListsBoard = (): ReactElement => {
       </S.PaginationLists>
     );
   };
+
+  if (isLoading) return <span>Loading...</span>
 
   return (
     <CardUi label={'몰랑 퀴즈'}>

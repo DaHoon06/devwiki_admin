@@ -22,5 +22,5 @@ export type QuizLists = {
   totalElement: number,
   totalPage: number,
   hasNext: boolean,
-  quizList: QuizBase[]
+  quizList: UpdateQuiz[]
 }
