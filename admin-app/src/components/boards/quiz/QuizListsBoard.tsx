@@ -51,7 +51,7 @@ export const QuizListsBoard = (): ReactElement => {
   ) => {
     const { checked } = e.target;
     const arr: number[] = [];
-    if (checked) inputState.forEach((board) => arr.push(+board.quizId));
+    if (checked) data?.quizList.forEach((board) => arr.push(+board.quizId));
     setDeleteCheckbox(arr);
   };
 
