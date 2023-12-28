@@ -8,7 +8,7 @@ import {
 } from '@services/apis/users';
 
 type AuthContextType = {
-  user: ResponseData | null;
+  tokens: ResponseData | null;
   signIn: (loginData: RequestSignIn) => void;
   signOut: () => void;
   validateToken: () => void;
@@ -25,11 +25,11 @@ export const useAuth = () => {
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const { getStorageItems, removeStorageItems, setStorageItems } =
     useLocalStorage<ResponseData>();
-  const [user, setUser] = useState(getStorageItems(STORAGE_TOKEN_KEY));
+  const [tokens, setTokens] = useState(getStorageItems(STORAGE_TOKEN_KEY));
   const [expiredToken, setExpiredToken] = useState(false);
 
   const signOut = () => {
-    setUser(null);
+    setTokens(null);
     removeStorageItems(STORAGE_USER_KEY);
   };
 
@@ -37,7 +37,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     const payload = await signInApi(loginData);
     if (!payload) throw new Error('로그인 정보를 다시 확인해 주세요.');
     setStorageItems(STORAGE_TOKEN_KEY, payload);
-    setUser(payload);
+    setTokens(payload);
   };
 
   const validateToken = async (): Promise<void> => {
@@ -50,7 +50,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     signIn,
     signOut,
     validateToken,
-    user,
+    tokens,
     expiredToken,
   };
 

@@ -2,7 +2,10 @@ import { CardUi } from '@components/ui/card/Card';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { Quiz, UpdateQuiz } from '@interfaces/Quiz';
 import { Link } from 'react-router-dom';
-import {useDeleteQuiz, useUpdateQuiz} from '@services/mutation/useQuizMutation';
+import {
+  useDeleteQuiz,
+  useUpdateQuiz,
+} from '@services/mutation/useQuizMutation';
 import * as S from './QuizListsBoard.style';
 import { Typography } from '@components/common/Typography';
 import { AiFillSave } from 'react-icons/ai';
@@ -21,10 +24,6 @@ export const QuizListsBoard = (): ReactElement => {
 
   const deleteQuizMutate = useDeleteQuiz();
   const updateQuizMutate = useUpdateQuiz();
-
-  useEffect(() => {
-    if (data && data.quizList.length > 0) setInputState((prevState) => [...prevState, ...data.quizList]);
-  }, [data]);
 
   const onClickPaginationHandler = (page: number) => {
     setCurrentPage(page);
@@ -108,7 +107,7 @@ export const QuizListsBoard = (): ReactElement => {
     );
   };
 
-  if (isLoading) return <span>Loading...</span>
+  if (isLoading) return <span>Loading...</span>;
 
   return (
     <CardUi label={'몰랑 퀴즈'}>
@@ -138,128 +137,138 @@ export const QuizListsBoard = (): ReactElement => {
           <S.QuizListLayout>
             <S.QuizHeader>
               <label>
-                <Typography as={'span'}>
-                  전체 선택
-                </Typography>
+                <Typography as={'span'}>전체 선택</Typography>
                 <input
                   type={'checkbox'}
                   onChange={onChangeCheckboxAllSelected}
-                  checked={deleteCheckbox.length === inputState.length}
+                  checked={deleteCheckbox.length === data.quizList.length}
                 />
               </label>
-
             </S.QuizHeader>
-            {inputState.map((board) => {
-              return (
-                <S.QuizBox
-                  key={`mollrang-quiz-${board.quizId}`}
-                  className={updateQuizId === board.quizId ? 'active' : ''}
-                >
-                  <div>
-                    <S.QuizBoxOptions>
-                      <label htmlFor={`check-label-${board.quizId}`}>
-                        <input
-                          checked={deleteCheckbox.includes(+board.quizId)}
-                          type={'checkbox'}
-                          value={board.quizId}
-                          id={`check-label-${board.quizId}`}
-                          onChange={onChangeCheckbox}
-                        />
-                      </label>
-                      {!inputDisabledCheck(board.quizId) ? (
-                        <Button
-                          variant={'icon'}
-                          type={'button'}
-                          onClick={() => onClickUpdateQuizHandler(board.quizId)}
-                        >
-                          저장
-                          <AiFillSave size={24} />
-                        </Button>
-                      ) : (
-                        <Button
-                          variant={'icon'}
-                          type={'button'}
-                          onClick={() => onClickUpdateQuizHandler(board.quizId)}
-                        >
-                          수정
-                          <HiPencilAlt size={24} />
-                        </Button>
-                      )}
-                    </S.QuizBoxOptions>
+            {data.quizList &&
+              data.quizList.map((board) => {
+                return (
+                  <S.QuizBox
+                    key={`mollrang-quiz-${board.quizId}`}
+                    className={updateQuizId === board.quizId ? 'active' : ''}
+                  >
                     <div>
-                      <label>
-                        <Typography
-                          as={'span'}
-                          $color={'textGray200'}
-                          $weight={'medium'}
-                        >
-                          퀴즈
-                        </Typography>
-                        <input
-                          type={'text'}
-                          name={'question'}
-                          value={board.question}
-                          disabled={inputDisabledCheck(board.quizId)}
-                          onChange={(e) => onChangeInputValue(e, board.quizId)}
-                        />
-                      </label>
+                      <S.QuizBoxOptions>
+                        <label htmlFor={`check-label-${board.quizId}`}>
+                          <input
+                            checked={deleteCheckbox.includes(+board.quizId)}
+                            type={'checkbox'}
+                            value={board.quizId}
+                            id={`check-label-${board.quizId}`}
+                            onChange={onChangeCheckbox}
+                          />
+                        </label>
+                        {!inputDisabledCheck(board.quizId) ? (
+                          <Button
+                            variant={'icon'}
+                            type={'button'}
+                            onClick={() =>
+                              onClickUpdateQuizHandler(board.quizId)
+                            }
+                          >
+                            저장
+                            <AiFillSave size={24} />
+                          </Button>
+                        ) : (
+                          <Button
+                            variant={'icon'}
+                            type={'button'}
+                            onClick={() =>
+                              onClickUpdateQuizHandler(board.quizId)
+                            }
+                          >
+                            수정
+                            <HiPencilAlt size={24} />
+                          </Button>
+                        )}
+                      </S.QuizBoxOptions>
+                      <div>
+                        <label>
+                          <Typography
+                            as={'span'}
+                            $color={'textGray200'}
+                            $weight={'medium'}
+                          >
+                            퀴즈
+                          </Typography>
+                          <input
+                            type={'text'}
+                            name={'question'}
+                            value={board.question}
+                            disabled={inputDisabledCheck(board.quizId)}
+                            onChange={(e) =>
+                              onChangeInputValue(e, board.quizId)
+                            }
+                          />
+                        </label>
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <div className={'answer_input_box'}>
-                      <label>
-                        <Typography
-                          as={'span'}
-                          $color={'textGray200'}
-                          $weight={'medium'}
-                        >
-                          Prefix
-                        </Typography>
-                        <input
-                          type={'text'}
-                          value={board.prefix}
-                          name={'prefix'}
-                          disabled={inputDisabledCheck(board.quizId)}
-                          onChange={(e) => onChangeInputValue(e, board.quizId)}
-                        />
-                      </label>
-                      <label>
-                        <Typography
-                          as={'span'}
-                          $color={'textGray200'}
-                          $weight={'medium'}
-                        >
-                          Answer
-                        </Typography>
-                        <input
-                          type={'text'}
-                          value={board.answer}
-                          name={'answer'}
-                          disabled={inputDisabledCheck(board.quizId)}
-                          onChange={(e) => onChangeInputValue(e, board.quizId)}
-                        />
-                      </label>
-                      <label>
-                        <Typography
-                          as={'span'}
-                          $color={'textGray200'}
-                          $weight={'medium'}
-                        >
-                          Suffix
-                        </Typography>
-                        <input
-                          type={'text'}
-                          value={board.suffix}
-                          name={'suffix'}
-                          disabled={inputDisabledCheck(board.quizId)}
-                          onChange={(e) => onChangeInputValue(e, board.quizId)}
-                        />
-                      </label>
+                    <div>
+                      <div className={'answer_input_box'}>
+                        <label>
+                          <Typography
+                            as={'span'}
+                            $color={'textGray200'}
+                            $weight={'medium'}
+                          >
+                            Prefix
+                          </Typography>
+                          <input
+                            type={'text'}
+                            value={board.prefix}
+                            name={'prefix'}
+                            disabled={inputDisabledCheck(board.quizId)}
+                            onChange={(e) =>
+                              onChangeInputValue(e, board.quizId)
+                            }
+                          />
+                        </label>
+                        <label>
+                          <Typography
+                            as={'span'}
+                            $color={'textGray200'}
+                            $weight={'medium'}
+                          >
+                            Answer
+                          </Typography>
+                          <input
+                            type={'text'}
+                            value={board.answer}
+                            name={'answer'}
+                            disabled={inputDisabledCheck(board.quizId)}
+                            onChange={(e) =>
+                              onChangeInputValue(e, board.quizId)
+                            }
+                          />
+                        </label>
+                        <label>
+                          <Typography
+                            as={'span'}
+                            $color={'textGray200'}
+                            $weight={'medium'}
+                          >
+                            Suffix
+                          </Typography>
+                          <input
+                            type={'text'}
+                            value={board.suffix}
+                            name={'suffix'}
+                            disabled={inputDisabledCheck(board.quizId)}
+                            onChange={(e) =>
+                              onChangeInputValue(e, board.quizId)
+                            }
+                          />
+                        </label>
+                      </div>
                     </div>
-                  </div>
-                </S.QuizBox>
-              );
-            })}
+                  </S.QuizBox>
+                );
+              })}
           </S.QuizListLayout>
 
           <Pagination />
@@ -279,7 +288,6 @@ export const QuizListsBoard = (): ReactElement => {
           </Link>
 
           <Typography>등록된 퀴즈가 없습니다. 퀴즈를 등록해주세요.</Typography>
-
         </div>
       )}
     </CardUi>
