@@ -1,14 +1,23 @@
-import {UseMutateFunction, useMutation} from "@tanstack/react-query";
-import {QueryKeys} from "@services/keys/queryKeys";
-import {queryClient} from "@libs/Tanstack";
-import {DeleteManyQuizApi, InsertManyQuizApi, UpdateManyQuizApi} from "@services/apis/quiz";
-import toast from "@components/common/toast/ToastHandler";
-import {InsertQuizData, UpdateQuizData} from "@interfaces/Quiz";
+import { UseMutateFunction, useMutation } from '@tanstack/react-query';
+import { QueryKeys } from '@services/keys/queryKeys';
+import { queryClient } from '@libs/Tanstack';
+import {
+  deleteManyQuizApi,
+  insertManyQuizApi,
+  updateManyQuizApi,
+} from '@services/apis/quiz';
+import toast from '@components/common/toast/ToastHandler';
+import { InsertQuizData, UpdateQuizData } from '@interfaces/Quiz';
 
-export const useAddQuiz = (): UseMutateFunction<boolean, unknown, InsertQuizData[], unknown> => {
-  const {mutate} = useMutation({
+export const useAddQuiz = (): UseMutateFunction<
+  boolean,
+  unknown,
+  InsertQuizData[],
+  unknown
+> => {
+  const { mutate } = useMutation({
     mutationKey: [QueryKeys.Mutation.Quiz.InsertMany],
-    mutationFn: (quizData: InsertQuizData[]) => InsertManyQuizApi(quizData),
+    mutationFn: (quizData: InsertQuizData[]) => insertManyQuizApi(quizData),
     onSuccess: async (payload: boolean) => {
       await queryClient.invalidateQueries([QueryKeys.Mutation.Quiz.InsertMany]);
     },
@@ -17,12 +26,17 @@ export const useAddQuiz = (): UseMutateFunction<boolean, unknown, InsertQuizData
     },
   });
   return mutate;
-}
+};
 
-export const useDeleteQuiz = (): UseMutateFunction<boolean, unknown, number[], unknown> => {
+export const useDeleteQuiz = (): UseMutateFunction<
+  boolean,
+  unknown,
+  number[],
+  unknown
+> => {
   const { mutate } = useMutation({
     mutationKey: [QueryKeys.Mutation.Quiz.DeleteMany],
-    mutationFn: (quizIds: number[]) => DeleteManyQuizApi(quizIds),
+    mutationFn: (quizIds: number[]) => deleteManyQuizApi(quizIds),
     onSuccess: async (payload: boolean) => {
       await queryClient.invalidateQueries([QueryKeys.Mutation.Quiz.DeleteMany]);
     },
@@ -31,12 +45,17 @@ export const useDeleteQuiz = (): UseMutateFunction<boolean, unknown, number[], u
     },
   });
   return mutate;
-}
+};
 
-export const useUpdateQuiz = (): UseMutateFunction<boolean, unknown, UpdateQuizData[], unknown> => {
+export const useUpdateQuiz = (): UseMutateFunction<
+  boolean,
+  unknown,
+  UpdateQuizData[],
+  unknown
+> => {
   const { mutate } = useMutation({
     mutationKey: [QueryKeys.Mutation.Quiz.UpdateMany],
-    mutationFn: (quizData: UpdateQuizData[]) => UpdateManyQuizApi(quizData),
+    mutationFn: (quizData: UpdateQuizData[]) => updateManyQuizApi(quizData),
     onSuccess: async (payload: boolean) => {
       await queryClient.invalidateQueries([QueryKeys.Mutation.Quiz.UpdateMany]);
     },
@@ -45,4 +64,4 @@ export const useUpdateQuiz = (): UseMutateFunction<boolean, unknown, UpdateQuizD
     },
   });
   return mutate;
-}
+};

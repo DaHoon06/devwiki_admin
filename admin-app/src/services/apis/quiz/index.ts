@@ -1,15 +1,17 @@
 import { axiosInstance } from '@libs/Axios';
-import {InsertQuizData, QuizLists, UpdateQuizData} from "@interfaces/Quiz";
-import {responseDataConvert} from "@utils/convert";
+import { InsertQuizData, QuizLists, UpdateQuizData } from '@interfaces/Quiz';
+import { responseDataConvert } from '@utils/convert';
 
 export type QuizListRequestQuery = {
   page: number;
-}
+};
 
-export const FindQuizListsApi = async (query: QuizListRequestQuery): Promise<QuizLists> => {
+export const findQuizListsApi = async (
+  query: QuizListRequestQuery
+): Promise<QuizLists> => {
   try {
     const { data } = await axiosInstance.get(
-      `/admin/quizzes?page=${query.page}`,
+      `/admin/quizzes?page=${query.page}`
     );
     return responseDataConvert<QuizLists>(data);
   } catch (e) {
@@ -17,28 +19,30 @@ export const FindQuizListsApi = async (query: QuizListRequestQuery): Promise<Qui
   }
 };
 
-export const InsertManyQuizApi = async (quizData: InsertQuizData[]) => {
+export const insertManyQuizApi = async (quizData: InsertQuizData[]) => {
   try {
-    const {data} = await axiosInstance.post(`/admin/quizzes`, quizData);
+    const { data } = await axiosInstance.post(`/admin/quizzes`, quizData);
     return data;
   } catch (e) {
     throw e;
   }
-}
+};
 
-export const UpdateManyQuizApi = async (quizData: UpdateQuizData[]) => {
+export const updateManyQuizApi = async (quizData: UpdateQuizData[]) => {
   try {
-    const {data} = await axiosInstance.patch('/admin/quizzes', quizData);
+    const { data } = await axiosInstance.patch('/admin/quizzes', quizData);
     return data;
   } catch (e) {
     throw e;
   }
-}
-export const DeleteManyQuizApi = async (quizIds: number[]) => {
+};
+export const deleteManyQuizApi = async (quizIds: number[]) => {
   try {
-    const {data} = await axiosInstance.delete(`/admin/quizzes`, { data: quizIds });
+    const { data } = await axiosInstance.delete(`/admin/quizzes`, {
+      data: quizIds,
+    });
     return data;
   } catch (e) {
     throw e;
   }
-}
+};
