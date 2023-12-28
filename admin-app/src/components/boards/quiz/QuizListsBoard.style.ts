@@ -14,7 +14,9 @@ export const QuizListLayout = styled.div`
   scale: 0.98;
 `;
 
-export const QuizHeader = styled.div``;
+export const QuizHeader = styled.div`
+  padding: 1em 0;
+`;
 export const QuizBoxOptions = styled.div`
   display: flex;
   align-items: center;
@@ -26,16 +28,15 @@ export const QuizBox = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.GRAY_300};
 
   .quiz_title_container {
-
     input[type='checkbox'] {
       margin-right: 1em;
     }
-    
+
     input[type='text'] {
       width: 100%;
     }
   }
-  
+
   label {
     display: flex;
     flex-direction: column;
@@ -51,12 +52,12 @@ export const QuizBox = styled.div`
     z-index: 10;
     background: #f6f6f6;
   }
-  
+
   .answer_input_box {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    
+
     label {
       width: 30%;
     }

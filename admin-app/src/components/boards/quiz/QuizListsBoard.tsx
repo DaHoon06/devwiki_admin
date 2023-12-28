@@ -34,6 +34,10 @@ export const QuizListsBoard = (): ReactElement => {
     // updateQuizMutate(updateQuizId);
   };
 
+  const onClickCancelQuizHandler = () => {
+    setUpdateQuizId(-1);
+  };
+
   const onClickDeleteQuizHandler = async () => {
     deleteQuizMutate(deleteCheckbox);
     setDeleteCheckbox([]);
@@ -114,7 +118,11 @@ export const QuizListsBoard = (): ReactElement => {
       {data && data.quizList.length > 0 ? (
         <>
           <S.HeaderOption>
-            <Button type={'button'} onClick={onClickDeleteQuizHandler}>
+            <Button
+              type={'button'}
+              onClick={onClickDeleteQuizHandler}
+              disabled={deleteCheckbox.length === 0}
+            >
               <MdDelete size={16} color={'#fff'} />
               <Typography as={'span'} $color={'textWhite'} $weight={'bold'}>
                 선택 삭제
@@ -164,16 +172,25 @@ export const QuizListsBoard = (): ReactElement => {
                           />
                         </label>
                         {!inputDisabledCheck(board.quizId) ? (
-                          <Button
-                            variant={'icon'}
-                            type={'button'}
-                            onClick={() =>
-                              onClickUpdateQuizHandler(board.quizId)
-                            }
-                          >
-                            저장
-                            <AiFillSave size={24} />
-                          </Button>
+                          <div>
+                            <Button
+                              variant={'icon'}
+                              type={'button'}
+                              onClick={() =>
+                                onClickUpdateQuizHandler(board.quizId)
+                              }
+                            >
+                              저장
+                              <AiFillSave size={24} />
+                            </Button>
+                            <Button
+                              variant={'icon'}
+                              type={'button'}
+                              onClick={() => onClickCancelQuizHandler()}
+                            >
+                              취소
+                            </Button>
+                          </div>
                         ) : (
                           <Button
                             variant={'icon'}
