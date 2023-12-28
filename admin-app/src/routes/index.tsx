@@ -18,12 +18,16 @@ import { QuizListsBoard } from '@components/boards/quiz/QuizListsBoard';
 /**@description 권한 검사 모듈 */
 const AuthRoute = (): ReactElement => {
   const { user } = useAuth();
+  // validateToken();
+
   if (!user) return <Navigate to={'/sign-in'} replace />;
   return <Outlet />;
 };
 
 const LoginCheckRoute = (): ReactElement => {
   const { user } = useAuth();
+  // validateToken();
+
   if (user) return <Navigate to={'/'} replace />;
   return <Outlet />;
 };

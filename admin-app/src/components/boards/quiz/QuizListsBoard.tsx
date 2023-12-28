@@ -2,7 +2,7 @@ import { CardUi } from '@components/ui/card/Card';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { Quiz, UpdateQuiz } from '@interfaces/Quiz';
 import { Link } from 'react-router-dom';
-import { useDeleteQuiz } from '@services/mutation/useQuizMutation';
+import {useDeleteQuiz, useUpdateQuiz} from '@services/mutation/useQuizMutation';
 import * as S from './QuizListsBoard.style';
 import { Typography } from '@components/common/Typography';
 import { AiFillSave } from 'react-icons/ai';
@@ -18,7 +18,9 @@ export const QuizListsBoard = (): ReactElement => {
   const [updateQuizId, setUpdateQuizId] = useState(-1);
   const [inputState, setInputState] = useState<UpdateQuiz[]>([]);
   const { data, isLoading } = useQuizLists({ page: currentPage });
+
   const deleteQuizMutate = useDeleteQuiz();
+  const updateQuizMutate = useUpdateQuiz();
 
   useEffect(() => {
     if (data && data.quizList.length > 0) setInputState((prevState) => [...prevState, ...data.quizList]);
@@ -30,6 +32,7 @@ export const QuizListsBoard = (): ReactElement => {
 
   const onClickUpdateQuizHandler = (quizId: number) => {
     setUpdateQuizId(quizId);
+    // updateQuizMutate(updateQuizId);
   };
 
   const onClickDeleteQuizHandler = async () => {

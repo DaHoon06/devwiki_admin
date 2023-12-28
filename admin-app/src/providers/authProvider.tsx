@@ -1,12 +1,18 @@
 import useLocalStorage from '@hooks/useLocalStorage';
 import React, { ReactNode, useState } from 'react';
 import { RequestSignIn } from '@interfaces/response.user';
-import { ResponseData, SignInApi } from '@services/apis/users';
+import {
+  ResponseData,
+  signInApi,
+  validateAccessTokenApi,
+} from '@services/apis/users';
 
 type AuthContextType = {
   user: ResponseData | null;
   signIn: (loginData: RequestSignIn) => void;
   signOut: () => void;
+  validateToken: () => void;
+  expiredToken: boolean;
 };
 export const STORAGE_USER_KEY = 'user' as const;
 export const STORAGE_TOKEN_KEY = 'tokens' as const;
@@ -20,6 +26,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const { getStorageItems, removeStorageItems, setStorageItems } =
     useLocalStorage<ResponseData>();
   const [user, setUser] = useState(getStorageItems(STORAGE_TOKEN_KEY));
+  const [expiredToken, setExpiredToken] = useState(false);
 
   const signOut = () => {
     setUser(null);
@@ -27,16 +34,24 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const signIn = async (loginData: RequestSignIn) => {
-    const payload = await SignInApi(loginData);
+    const payload = await signInApi(loginData);
     if (!payload) throw new Error('로그인 정보를 다시 확인해 주세요.');
     setStorageItems(STORAGE_TOKEN_KEY, payload);
     setUser(payload);
   };
 
+  const validateToken = async (): Promise<void> => {
+    const expired = await validateAccessTokenApi();
+    if (expired) signOut();
+    setExpiredToken(expired);
+  };
+
   const value = {
     signIn,
     signOut,
+    validateToken,
     user,
+    expiredToken,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

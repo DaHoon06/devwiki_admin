@@ -1,4 +1,4 @@
-import { UseMutateFunction, useMutation } from '@tanstack/react-query';
+import { UseMutateFunction, useMutation, useQueryClient } from '@tanstack/react-query';
 import { QueryKeys } from '@services/keys/queryKeys';
 import { queryClient } from '@libs/Tanstack';
 import {
@@ -16,10 +16,9 @@ export const useAddQuiz = (): UseMutateFunction<
   unknown
 > => {
   const { mutate } = useMutation({
-    mutationKey: [QueryKeys.Mutation.Quiz.InsertMany],
     mutationFn: (quizData: InsertQuizData[]) => insertManyQuizApi(quizData),
     onSuccess: async (payload: boolean) => {
-      await queryClient.invalidateQueries([QueryKeys.Mutation.Quiz.InsertMany]);
+      await queryClient.invalidateQueries([QueryKeys.useQuery.Quiz]);
     },
     onError(e) {
       toast.message(`퀴즈 등록에 실패하였습니다 - ${e}`, 'error');
@@ -35,10 +34,10 @@ export const useDeleteQuiz = (): UseMutateFunction<
   unknown
 > => {
   const { mutate } = useMutation({
-    mutationKey: [QueryKeys.Mutation.Quiz.DeleteMany],
     mutationFn: (quizIds: number[]) => deleteManyQuizApi(quizIds),
     onSuccess: async (payload: boolean) => {
-      await queryClient.invalidateQueries([QueryKeys.Mutation.Quiz.DeleteMany]);
+      await queryClient.invalidateQueries([QueryKeys.useQuery.Quiz]);
+      toast.message('퀴즈가 삭제 되었습니다.' ,'success');
     },
     onError(e) {
       toast.message(`퀴즈 삭제에 실패하였습니다 - ${e}`, 'error');
@@ -54,10 +53,9 @@ export const useUpdateQuiz = (): UseMutateFunction<
   unknown
 > => {
   const { mutate } = useMutation({
-    mutationKey: [QueryKeys.Mutation.Quiz.UpdateMany],
     mutationFn: (quizData: UpdateQuizData[]) => updateManyQuizApi(quizData),
     onSuccess: async (payload: boolean) => {
-      await queryClient.invalidateQueries([QueryKeys.Mutation.Quiz.UpdateMany]);
+      await queryClient.invalidateQueries([QueryKeys.useQuery.Quiz]);
     },
     onError(e) {
       toast.message(`퀴즈를 수정하는데 실패하였습니다 - ${e}`, 'error');
