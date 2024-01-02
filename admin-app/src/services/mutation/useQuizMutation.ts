@@ -52,15 +52,16 @@ export const useDeleteQuiz = (): UseMutateFunction<
 };
 
 export const useUpdateQuiz = (): UseMutateFunction<
-  boolean,
+  void,
   unknown,
   UpdateQuizData[],
   unknown
 > => {
   const { mutate } = useMutation({
     mutationFn: (quizData: UpdateQuizData[]) => updateManyQuizApi(quizData),
-    onSuccess: async (payload: boolean) => {
+    onSuccess: async () => {
       await queryClient.invalidateQueries([QueryKeys.useQuery.Quiz]);
+      toast.message(`퀴즈를 수정하였습니다.`, 'success');
     },
     onError(e) {
       toast.message(`퀴즈를 수정하는데 실패하였습니다 - ${e}`, 'error');

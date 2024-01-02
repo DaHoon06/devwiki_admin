@@ -1,6 +1,6 @@
 import { CardUi } from '@components/ui/card/Card';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
-import { Quiz, UpdateQuiz } from '@interfaces/Quiz';
+import { UpdateQuiz } from '@interfaces/Quiz';
 import { Link } from 'react-router-dom';
 import {
   useDeleteQuiz,
@@ -22,27 +22,31 @@ export const QuizListsBoard = (): ReactElement => {
   const { data, isLoading } = useQuizLists({ page: currentPage });
   const [inputState, setInputState] = useState<UpdateQuiz[]>([]);
 
-  const boardData = useMemo(() => {
-    if (isLoading) return null;
-    return data;
-  }, [data, isLoading]);
-
-  useEffect(() => {
-    if (boardData) setInputState((prevState) => [...boardData.quizList]);
-  }, [boardData, currentPage]);
-
   const deleteQuizMutate = useDeleteQuiz();
   const updateQuizMutate = useUpdateQuiz();
 
+  const boardData = useMemo(() => {
+    if (isLoading) return null;
+    return data
+  }, [data, isLoading]);
+
+  useEffect(() => {
+    if (boardData?.quizList) setInputState(boardData.quizList)
+  }, [boardData]);
+
   const onClickPaginationHandler = (page: number) => {
-    console.log(page);
     setCurrentPage(page);
   };
 
-  const onClickUpdateQuizHandler = (quizId: number) => {
+  const onClickEditModeHandler = (quizId: number) => {
     setUpdateQuizId(quizId);
-    // updateQuizMutate(updateQuizId);
   };
+
+  const onClickUpdateQuizHandler = (quizId: number) => {
+    const body = inputState.filter((board) => board.quizId === quizId);
+    if (body) updateQuizMutate(body);
+    setUpdateQuizId(-1);
+  }
 
   const onClickCancelQuizHandler = () => {
     setUpdateQuizId(-1);
@@ -65,7 +69,7 @@ export const QuizListsBoard = (): ReactElement => {
   ) => {
     const { checked } = e.target;
     const arr: number[] = [];
-    if (checked) data?.quizList.forEach((board) => arr.push(+board.quizId));
+    if (checked) inputState.forEach((board) => arr.push(+board.quizId));
     setDeleteCheckbox(arr);
   };
 
@@ -74,22 +78,17 @@ export const QuizListsBoard = (): ReactElement => {
     quizId: number
   ) => {
     const { value, name } = e.target;
-
-    if (data?.quizList) {
-      setInputState(
-        data.quizList.map((quiz) => {
-          if (quiz.quizId === quizId) {
-            return {
-              ...quiz,
-              [name]: value,
-            };
-          }
-          return {
-            ...quiz,
-          };
-        })
-      );
-    }
+    setInputState(inputState.map((quiz) => {
+      if (quiz.quizId === quizId) {
+        return {
+          ...quiz,
+          [name]: value,
+        };
+      }
+      return {
+        ...quiz,
+      };
+    }))
   };
 
   const inputDisabledCheck = (quizId: number): boolean => {
@@ -129,7 +128,7 @@ export const QuizListsBoard = (): ReactElement => {
 
   return (
     <CardUi label={'몰랑 퀴즈'}>
-      {data && data.quizList.length > 0 ? (
+      {inputState.length > 0 ? (
         <>
           <S.HeaderOption>
             <Button
@@ -163,7 +162,7 @@ export const QuizListsBoard = (): ReactElement => {
                 <input
                   type={'checkbox'}
                   onChange={onChangeCheckboxAllSelected}
-                  checked={deleteCheckbox.length === data.quizList.length}
+                  checked={deleteCheckbox.length === inputState.length}
                 />
               </label>
             </S.QuizHeader>
@@ -208,7 +207,7 @@ export const QuizListsBoard = (): ReactElement => {
                         <Button
                           variant={'icon'}
                           type={'button'}
-                          onClick={() => onClickUpdateQuizHandler(board.quizId)}
+                          onClick={() => onClickEditModeHandler(board.quizId)}
                         >
                           수정
                           <HiPencilAlt size={24} />
