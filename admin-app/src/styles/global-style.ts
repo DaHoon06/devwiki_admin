@@ -138,7 +138,13 @@ export const GlobalStyle = createGlobalStyle`
     --textGrayAndWhite: #bdbdbd;
     --textYellow: #edbe17;
 
+    --boarder_color: #ededed;
+
+    --logo_color: #222;
+
     --bg_primary: #fff;
+    --bg_sub: #f5f5f8;
+    --bg_card: #fff;
     --bg_side_menu: #FFFFFFC4;
   }
 
@@ -151,6 +157,7 @@ export const GlobalStyle = createGlobalStyle`
     --error_opacity: rgba(255, 80, 80, 0.7);
     --warning_opacity: rgba(255, 199, 0, 0.7);
 
+    --boarder_color: #404751;
 
     // Typography - dark
     --textDefault: #fff;
@@ -165,7 +172,12 @@ export const GlobalStyle = createGlobalStyle`
     --textRed000: #FF5050;
     --textGrayAndWhite: #fff;
     --textYellow: #FFC700;
-    --bg_primary: #131d2b;
-    --bg_side_menu: #131d2b;
+
+    --logo_color: #fff;
+
+    --bg_primary: #1c2128;
+    --bg_card: #2d333b;
+    --bg_sub: #1c2128;
+    --bg_side_menu: #1c2128;
   }
 `;

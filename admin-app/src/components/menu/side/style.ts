@@ -6,7 +6,7 @@ export const SideMenuContainer = styled(motion.aside)`
   height: calc(100% - 60px);
   background-color: ${({ theme }) => theme.colors.bg.side_primary};
   border-right: 0.5px solid;
-  border-color: ${({ theme }) => theme.colors.GRAY_500};
+  border-color: ${({ theme }) => theme.colors.BORDER_COLOR};
   border-radius: 0 0 0 2px;
   position: fixed;
   left: 0;
@@ -24,7 +24,7 @@ export const SideMenuTop = styled.div`
   padding: 1.25em;
   justify-content: flex-start;
   column-gap: 0.5em;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.GRAY_500};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.BORDER_COLOR};
 `;
 
 export const SideMenuBox = styled.div`
@@ -40,5 +40,5 @@ export const DarkModeOptionBox = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 1em;
-  border-top: 1px solid ${({ theme }) => theme.colors.GRAY_500};
+  border-top: 1px solid ${({ theme }) => theme.colors.BORDER_COLOR};
 `;

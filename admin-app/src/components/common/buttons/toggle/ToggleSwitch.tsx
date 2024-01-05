@@ -7,7 +7,7 @@ interface Props {
 
 export const ToggleSwitchButton = (props: Props) => {
   const { mode, onClick } = props;
-  console.log(mode)
+  console.log(mode);
   return (
     <>
       <ToggleSwitch>
@@ -56,11 +56,7 @@ const CheckBox = styled.input`
   height: 0;
 
   &:checked + ${ToggleSlider} {
-    background-color: ${({ theme }) => theme.colors.PRIMARY};
-  }
-
-  &:focus + ${ToggleSlider} {
-    box-shadow: 0 0 1px #2196f3;
+    background-color: ${({ theme }) => theme.colors.BORDER_COLOR};
   }
 
   &:checked + ${ToggleSlider}:before {

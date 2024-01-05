@@ -16,11 +16,14 @@ export const colors = {
   BLACK_350: '#383838',
   BLACK_400: '#525252',
   BLACK_500: '#737373',
+  BORDER_COLOR: 'var(--boarder_color)',
   WHITE: '#FFFFFF',
   none: 'none',
   textDefault: '#ededed',
   bg: {
     primary: 'var(--bg_primary)',
+    sub: 'var(--bg_sub)',
+    card: 'var(--bg_card)',
     side_primary: 'var(--bg_side_menu)',
   },
   mode: {

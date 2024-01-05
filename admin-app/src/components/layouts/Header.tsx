@@ -11,9 +11,15 @@ import { RiAccountCircleFill } from 'react-icons/ri';
 import { IoLogOut } from 'react-icons/io5';
 import { Typography } from '@components/common/Typography';
 import { useAuth } from '@providers/authProvider';
-import LOGO from '@assets/images/logo.svg';
+import { LogoIcon } from '@components/common/icons/Logo';
 
 const Logo = styled.div`
+  a {
+    display: inline-block;
+    width: 70px;
+    height: 100%;
+  }
+
   @media screen and (max-width: 769px) {
   }
 `;
@@ -29,7 +35,7 @@ export const Header = () => {
       <HeaderBox>
         <Logo>
           <Link to="/">
-            <img src={LOGO} alt="pmi-logo" width={70} />
+            <LogoIcon />
           </Link>
         </Logo>
         <div>

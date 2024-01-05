@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const CardLayout = styled.aside`
-  background-color: ${({ theme }) => theme.colors.WHITE};
-  border: 1px solid ${({ theme }) => theme.colors.GRAY_500};
+  background-color: ${({ theme }) => theme.colors.bg.card};
+  border: 1px solid ${({ theme }) => theme.colors.BORDER_COLOR};
   border-radius: 4px;
   width: 100%;
   max-width: 100%;
@@ -13,7 +13,7 @@ export const CardLayout = styled.aside`
 
 export const CardLabel = styled.div`
   padding: 1em;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.GRAY_500};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.BORDER_COLOR};
 `;
 
 export const CardBody = styled.div<{ height: number | unknown }>`

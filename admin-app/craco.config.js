@@ -5,6 +5,13 @@ const { compilerOptions } = require('./tsconfig.json');
 module.exports = {
   addons: [],
   webpack: {
+    configure: (config, { env, paths }) => {
+      config.module.rules.push({
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+      });
+      return config;
+    },
     alias: {
       '@headlessui': path.resolve(__dirname, 'src/components/common/headless'),
       '@components': path.resolve(__dirname, 'src/components'),
