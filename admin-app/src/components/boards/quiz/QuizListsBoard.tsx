@@ -1,8 +1,11 @@
 import { CardUi } from '@components/ui/card/Card';
-import React, { ReactElement, useEffect, useState } from 'react';
-import { Quiz, UpdateQuiz } from '@interfaces/Quiz';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+import { UpdateQuiz } from '@interfaces/Quiz';
 import { Link } from 'react-router-dom';
-import { useDeleteQuiz } from '@services/mutation/useQuizMutation';
+import {
+  useDeleteQuiz,
+  useUpdateQuiz,
+} from '@services/mutation/useQuizMutation';
 import * as S from './QuizListsBoard.style';
 import { Typography } from '@components/common/Typography';
 import { AiFillSave } from 'react-icons/ai';
@@ -16,20 +19,37 @@ export const QuizListsBoard = (): ReactElement => {
   const [currentPage, setCurrentPage] = useState(1);
   const [deleteCheckbox, setDeleteCheckbox] = useState<number[]>([]);
   const [updateQuizId, setUpdateQuizId] = useState(-1);
-  const [inputState, setInputState] = useState<UpdateQuiz[]>([]);
   const { data, isLoading } = useQuizLists({ page: currentPage });
+  const [inputState, setInputState] = useState<UpdateQuiz[]>([]);
+
   const deleteQuizMutate = useDeleteQuiz();
+  const updateQuizMutate = useUpdateQuiz();
+
+  const boardData = useMemo(() => {
+    if (isLoading) return null;
+    return data
+  }, [data, isLoading]);
 
   useEffect(() => {
-    if (data && data.quizList.length > 0) setInputState((prevState) => [...prevState, ...data.quizList]);
-  }, [data]);
+    if (boardData?.quizList) setInputState(boardData.quizList)
+  }, [boardData]);
 
   const onClickPaginationHandler = (page: number) => {
     setCurrentPage(page);
   };
 
-  const onClickUpdateQuizHandler = (quizId: number) => {
+  const onClickEditModeHandler = (quizId: number) => {
     setUpdateQuizId(quizId);
+  };
+
+  const onClickUpdateQuizHandler = (quizId: number) => {
+    const body = inputState.filter((board) => board.quizId === quizId);
+    if (body) updateQuizMutate(body);
+    setUpdateQuizId(-1);
+  }
+
+  const onClickCancelQuizHandler = () => {
+    setUpdateQuizId(-1);
   };
 
   const onClickDeleteQuizHandler = async () => {
@@ -58,19 +78,17 @@ export const QuizListsBoard = (): ReactElement => {
     quizId: number
   ) => {
     const { value, name } = e.target;
-    setInputState(
-      inputState.map((quiz) => {
-        if (quiz.quizId === quizId) {
-          return {
-            ...quiz,
-            [name]: value,
-          };
-        }
+    setInputState(inputState.map((quiz) => {
+      if (quiz.quizId === quizId) {
         return {
           ...quiz,
+          [name]: value,
         };
-      })
-    );
+      }
+      return {
+        ...quiz,
+      };
+    }))
   };
 
   const inputDisabledCheck = (quizId: number): boolean => {
@@ -85,7 +103,8 @@ export const QuizListsBoard = (): ReactElement => {
         group.push(
           <button
             className={currentPage === page ? 'active' : ''}
-            onClick={() => onClickPaginationHandler(page - 1)}
+            disabled={currentPage === page}
+            onClick={() => onClickPaginationHandler(page)}
           >
             {page}
           </button>
@@ -105,14 +124,18 @@ export const QuizListsBoard = (): ReactElement => {
     );
   };
 
-  if (isLoading) return <span>Loading...</span>
+  if (isLoading) return <span>Loading...</span>;
 
   return (
     <CardUi label={'몰랑 퀴즈'}>
-      {data && data.quizList.length > 0 ? (
+      {inputState.length > 0 ? (
         <>
           <S.HeaderOption>
-            <Button type={'button'} onClick={onClickDeleteQuizHandler}>
+            <Button
+              type={'button'}
+              onClick={onClickDeleteQuizHandler}
+              disabled={deleteCheckbox.length === 0}
+            >
               <MdDelete size={16} color={'#fff'} />
               <Typography as={'span'} $color={'textWhite'} $weight={'bold'}>
                 선택 삭제
@@ -135,16 +158,13 @@ export const QuizListsBoard = (): ReactElement => {
           <S.QuizListLayout>
             <S.QuizHeader>
               <label>
-                <Typography as={'span'}>
-                  전체 선택
-                </Typography>
+                <Typography as={'span'}>전체 선택</Typography>
                 <input
                   type={'checkbox'}
                   onChange={onChangeCheckboxAllSelected}
                   checked={deleteCheckbox.length === inputState.length}
                 />
               </label>
-
             </S.QuizHeader>
             {inputState.map((board) => {
               return (
@@ -164,19 +184,30 @@ export const QuizListsBoard = (): ReactElement => {
                         />
                       </label>
                       {!inputDisabledCheck(board.quizId) ? (
-                        <Button
-                          variant={'icon'}
-                          type={'button'}
-                          onClick={() => onClickUpdateQuizHandler(board.quizId)}
-                        >
-                          저장
-                          <AiFillSave size={24} />
-                        </Button>
+                        <div>
+                          <Button
+                            variant={'icon'}
+                            type={'button'}
+                            onClick={() =>
+                              onClickUpdateQuizHandler(board.quizId)
+                            }
+                          >
+                            저장
+                            <AiFillSave size={24} />
+                          </Button>
+                          <Button
+                            variant={'icon'}
+                            type={'button'}
+                            onClick={() => onClickCancelQuizHandler()}
+                          >
+                            취소
+                          </Button>
+                        </div>
                       ) : (
                         <Button
                           variant={'icon'}
                           type={'button'}
-                          onClick={() => onClickUpdateQuizHandler(board.quizId)}
+                          onClick={() => onClickEditModeHandler(board.quizId)}
                         >
                           수정
                           <HiPencilAlt size={24} />
@@ -276,7 +307,6 @@ export const QuizListsBoard = (): ReactElement => {
           </Link>
 
           <Typography>등록된 퀴즈가 없습니다. 퀴즈를 등록해주세요.</Typography>
-
         </div>
       )}
     </CardUi>

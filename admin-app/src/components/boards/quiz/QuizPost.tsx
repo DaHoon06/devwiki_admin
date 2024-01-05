@@ -7,7 +7,6 @@ import * as S from './QuizPost.style';
 import { FaPlus } from 'react-icons/fa';
 import { Button } from '@components/common/Button';
 import { AiFillSave } from 'react-icons/ai';
-import { InputLayer } from './QuizPost.style';
 
 export const QuizPost = (): ReactElement => {
   const [quiz, setQuiz] = useState<InsertQuizData[]>([]);

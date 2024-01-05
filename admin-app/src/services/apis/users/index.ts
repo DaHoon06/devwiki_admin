@@ -17,7 +17,12 @@ export interface ResponseSignIn {
   success: boolean;
 }
 
-export const SignInApi = async (payload: RequestSignIn) => {
+/**
+ *
+ * @param payload
+ * @@description 로그인
+ */
+export const signInApi = async (payload: RequestSignIn) => {
   try {
     const { data } = await axiosInstance.post<ResponseSignIn>(
       '/sign-in/admin',
@@ -36,4 +41,12 @@ export const SignInApi = async (payload: RequestSignIn) => {
   } catch (e) {
     throw e;
   }
+};
+
+/**
+ * @description 토큰 검사
+ */
+export const validateAccessTokenApi = async (): Promise<boolean> => {
+  const { data } = await axiosInstance.get('/sign-in/refresh');
+  return !data.success;
 };
