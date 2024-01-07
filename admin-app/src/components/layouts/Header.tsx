@@ -57,11 +57,17 @@ export const Header = () => {
 
 const ProfileBox = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   column-gap: 0.3em;
+  justify-content: space-between;
+`;
+const ProfileLayer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 export const User = (): ReactElement => {
-  const [userName, setUserName] = useState('');
+  const [userName, setUserName] = useState('데브위키');
   const { signOut } = useAuth();
 
   const { getStorageItems } = useLocalStorage<{
@@ -84,12 +90,17 @@ export const User = (): ReactElement => {
    */
   return (
     <ProfileBox className={'header-items-box'}>
-      <RiAccountCircleFill size={30} color={'#bdbdbd'} />
-      <Typography $color={'textGray000'} $weight="light">
-        {userName}
-      </Typography>
+      <ProfileLayer>
+        <RiAccountCircleFill size={30} color={'#bdbdbd'} />
+        <Typography $color={'textDefault'} as={'span'} $variant={'caption'}>
+          {userName}
+        </Typography>
+      </ProfileLayer>
+
       <button onClick={logout} type="button">
-        <IoLogOut size={30} color={'#bdbdbd'} />
+        <Typography $color={'textDefault'} as={'span'} $variant={'caption'}>
+          로그아웃
+        </Typography>
       </button>
     </ProfileBox>
   );

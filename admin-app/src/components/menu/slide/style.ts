@@ -28,6 +28,17 @@ export const ButtonWrapper = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   padding: 1em;
+  
+  .logo_name {
+    display: flex;
+    align-items: center;
+    column-gap: 0.3em;
+    
+  }
+`;
+
+export const UserProfileContainer = styled.div`
+  padding: 1em;
 `;
 
 export const SideMenuBox = styled.div`

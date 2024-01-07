@@ -8,8 +8,6 @@ import {
 } from '@services/mutation/useQuizMutation';
 import * as S from './QuizListsBoard.style';
 import { Typography } from '@components/common/Typography';
-import { AiFillSave } from 'react-icons/ai';
-import { HiPencilAlt } from 'react-icons/hi';
 import { FaPlus } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import { Button } from '@components/common/Button';
@@ -132,26 +130,16 @@ export const QuizListsBoard = (): ReactElement => {
       {inputState.length > 0 ? (
         <>
           <S.HeaderOption>
-            <Button
-              type={'button'}
-              onClick={onClickDeleteQuizHandler}
-              disabled={deleteCheckbox.length === 0}
-            >
-              <MdDelete size={16} color={'#fff'} />
-              <Typography as={'span'} $color={'textWhite'} $weight={'bold'}>
-                선택 삭제
-              </Typography>
-            </Button>
             <div className={'add_quiz_anchor_box'}>
               <Link to={'/mollrang/quiz/post'}>
-                <FaPlus size={16} color={'#222'} />
+                <FaPlus size={16} color={'var(--bg_default)'} />
                 <Typography
                   as={'span'}
-                  $color={'textBlack200'}
+                  $color={'textDefault'}
                   $weight={'bold'}
                   className={'label'}
                 >
-                  퀴즈 추가
+                  퀴즈 추가하기
                 </Typography>
               </Link>
             </div>
@@ -166,6 +154,16 @@ export const QuizListsBoard = (): ReactElement => {
                   checked={deleteCheckbox.length === inputState.length}
                 />
               </label>
+              <Button
+                type={'button'}
+                onClick={onClickDeleteQuizHandler}
+                disabled={deleteCheckbox.length === 0}
+              >
+                <MdDelete size={16} color={'#fff'} />
+                <Typography as={'span'} $color={'textWhite'} $weight={'bold'}>
+                  선택 삭제
+                </Typography>
+              </Button>
             </S.QuizHeader>
             {inputState.map((board) => {
               return (
@@ -185,23 +183,27 @@ export const QuizListsBoard = (): ReactElement => {
                         />
                       </label>
                       {!inputDisabledCheck(board.quizId) ? (
-                        <div>
+                        <div className={'options'}>
                           <Button
                             variant={'icon'}
                             type={'button'}
                             onClick={() =>
                               onClickUpdateQuizHandler(board.quizId)
                             }
+                            className={'update_save_button'}
                           >
-                            저장
-                            <AiFillSave size={24} />
+                            <Typography as={'span'} $color={'textDefault'} $variant={"caption"}>
+                              퀴즈 저장하기
+                            </Typography>
                           </Button>
                           <Button
                             variant={'icon'}
                             type={'button'}
                             onClick={() => onClickCancelQuizHandler()}
                           >
-                            취소
+                            <Typography as={'span'} $color={'textDefault'} $variant={"caption"}>
+                              취소
+                            </Typography>
                           </Button>
                         </div>
                       ) : (
@@ -210,8 +212,9 @@ export const QuizListsBoard = (): ReactElement => {
                           type={'button'}
                           onClick={() => onClickEditModeHandler(board.quizId)}
                         >
-                          수정
-                          <HiPencilAlt size={24} />
+                          <Typography as={'span'} $color={'textDefault'} $variant={"caption"}>
+                            퀴즈 수정하기
+                          </Typography>
                         </Button>
                       )}
                     </S.QuizBoxOptions>

@@ -15,16 +15,54 @@ export const QuizListLayout = styled.div`
 
 export const QuizHeader = styled.div`
   padding: 1em 0;
+  display: flex;
+  align-items: center;
+  column-gap: 1em;
+
+  button {
+    background-color: #ff2b2b !important;
+    padding: 1em;
+    width: 100px;
+    height: 30px;
+
+    &:hover {
+      filter: brightness(80%);
+    }
+
+    &:disabled {
+      background-color: #ff8e8e !important;
+
+      &:hover {
+        filter: brightness(100%);
+      }
+
+      span {
+        color: #e0dbdb;
+      }
+    }
+
+    span {
+      font-size: 1em;
+    }
+  }
 `;
 export const QuizBoxOptions = styled.div`
   display: flex;
   align-items: center;
   column-gap: 0.5em;
+  
+  .options {
+    display: flex;
+    
+    .update_save_button {
+      margin-right: 1em;
+    }
+  }
 `;
 export const QuizBox = styled.div`
   padding: 1em 0;
-  border-top: 1px solid ${({ theme }) => theme.colors.GRAY_300};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.GRAY_300};
+  border-top: 1px solid ${({theme}) => theme.colors.BORDER_COLOR};
+  border-bottom: 1px solid ${({theme}) => theme.colors.BORDER_COLOR};
 
   .quiz_title_container {
     input[type='checkbox'] {
@@ -42,13 +80,14 @@ export const QuizBox = styled.div`
   }
 
   &:hover {
-    background-color: #f8f8f8;
+    background-color: rgba(152, 152, 152, 0.24);
     cursor: pointer;
+    border-radius: 2px;
   }
 
   &.active {
-    z-index: 10;
-    background: #f6f6f6;
+    background-color: rgba(152, 152, 152, 0.24);
+    border-radius: 2px;
   }
 
   .answer_input_box {

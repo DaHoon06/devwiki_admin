@@ -11,6 +11,7 @@ import { Typography } from '@components/common/Typography';
 import useTheme from '@hooks/useTheme';
 import { ToggleSwitchButton } from '@components/common/buttons/toggle/ToggleSwitch';
 import { User } from '@components/layouts/Header';
+import {UserProfileContainer} from "./style";
 
 export const SlideMenu = (props: any): ReactElement => {
   const { isOpen, ele } = props;
@@ -69,7 +70,7 @@ export const SlideMenu = (props: any): ReactElement => {
             ref={ele}
           >
             <S.ButtonWrapper>
-              <div>
+              <div className={'logo_name'}>
                 <RiFunctionFill
                   color={isDarkMode ? '#fff' : '#222'}
                   size={20}
@@ -88,9 +89,9 @@ export const SlideMenu = (props: any): ReactElement => {
               </Button>
             </S.ButtonWrapper>
 
-            <div>
+            <S.UserProfileContainer>
               <User />
-            </div>
+            </S.UserProfileContainer>
             <hr />
             <S.SideMenuBox>
               <div>
