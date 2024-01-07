@@ -47,7 +47,7 @@ export const Header = () => {
             aria-label="hamburger-button"
             onClick={onClickHandler}
           >
-            <FiAlignJustify size={24} color={'#04C09E'} />
+            <FiAlignJustify size={24} color={'var(--bg_default)'} />
           </Button>
         </div>
       </HeaderBox>

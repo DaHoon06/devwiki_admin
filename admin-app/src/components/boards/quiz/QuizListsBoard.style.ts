@@ -11,7 +11,6 @@ export const PaginationLists = styled.ul`
 export const QuizListLayout = styled.div`
   width: 100%;
   height: 100%;
-  scale: 0.98;
 `;
 
 export const QuizHeader = styled.div`
@@ -45,7 +44,6 @@ export const QuizBox = styled.div`
   &:hover {
     background-color: #f8f8f8;
     cursor: pointer;
-    scale: 1;
   }
 
   &.active {

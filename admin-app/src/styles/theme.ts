@@ -24,6 +24,7 @@ export const colors = {
     primary: 'var(--bg_primary)',
     sub: 'var(--bg_sub)',
     card: 'var(--bg_card)',
+    card_label: 'var(--bg_card_label)',
     side_primary: 'var(--bg_side_menu)',
   },
   mode: {

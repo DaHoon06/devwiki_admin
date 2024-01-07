@@ -143,8 +143,10 @@ export const GlobalStyle = createGlobalStyle`
     --logo_color: #222;
 
     --bg_primary: #fff;
+    --bg_default: #04C09E;
     --bg_sub: #f5f5f8;
     --bg_card: #fff;
+    --bg_card_label: #fff;
     --bg_side_menu: #FFFFFFC4;
   }
 
@@ -160,9 +162,9 @@ export const GlobalStyle = createGlobalStyle`
     --boarder_color: #404751;
 
     // Typography - dark
-    --textDefault: #fff;
+    --textDefault: #ADBAC7;
     --textWhite: #fff;
-    --textPrimary: #778C86;
+    --textPrimary: #ADBAC7;
     --textBlack000: #000;
     --textBlack100: #222;
     --textBlack200: #f5f5f5;
@@ -176,7 +178,9 @@ export const GlobalStyle = createGlobalStyle`
     --logo_color: #fff;
 
     --bg_primary: #1c2128;
-    --bg_card: #2d333b;
+    --bg_default: #ADBAC7;
+    --bg_card: transperant;
+    --bg_card_label: #2d333b;
     --bg_sub: #1c2128;
     --bg_side_menu: #1c2128;
   }

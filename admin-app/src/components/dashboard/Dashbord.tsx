@@ -90,7 +90,7 @@ const ItemBox = styled.div`
 
 const QuizBox = styled.div`
   margin-top: 1em;
-  min-width: 820px;
+  min-width: 300px;
 
   ${({ theme }) => theme.media.tablet} {
     min-width: 100%;
