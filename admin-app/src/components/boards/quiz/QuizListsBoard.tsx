@@ -13,6 +13,7 @@ import { MdDelete } from 'react-icons/md';
 import { Button } from '@components/common/Button';
 import { useQuizLists } from '@services/queries/quizQuery';
 import {SpinnerUi} from "@components/ui/spinner/SpinnerUi";
+import { GrLinkPrevious, GrLinkNext } from "react-icons/gr";
 
 export const QuizListsBoard = (): ReactElement => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -94,6 +95,11 @@ export const QuizListsBoard = (): ReactElement => {
     return updateQuizId !== quizId;
   };
 
+  const onClickPageButton = (type: string) => {
+    if (type === 'prev') setCurrentPage(currentPage - 1);
+    else if (type === 'next') setCurrentPage(currentPage + 1);
+  }
+
   const Pagination = (): ReactElement => {
     const group = [];
     if (data) {
@@ -112,6 +118,9 @@ export const QuizListsBoard = (): ReactElement => {
     }
     return (
       <S.PaginationLists>
+        <Button onClick={() => onClickPageButton('prev')} disabled={currentPage === 1} className={'prev_button'} variant={'icon'}>
+          <GrLinkPrevious color={currentPage === 1 ? '#404751' : '#dddddd'} />
+        </Button>
         {group.map((pageButtonElement, index) => {
           return (
             <S.PaginationItems key={`pagination-${index}`}>
@@ -119,6 +128,9 @@ export const QuizListsBoard = (): ReactElement => {
             </S.PaginationItems>
           );
         })}
+        <Button onClick={() => onClickPageButton('next')} disabled={currentPage === group.length} className={'next_button'} variant={'icon'}>
+          <GrLinkNext color={currentPage === group.length ? '#404751' : '#DDDDDD'} />
+        </Button>
       </S.PaginationLists>
     );
   };

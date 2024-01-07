@@ -55,6 +55,7 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     color: var(--textDefault);
+    background-color: ${({theme}) => theme.colors.bg.primary};
     transition: background 0.2s ease-in, color 0.2s ease-in;
     width: 100%;
     height: 100%;

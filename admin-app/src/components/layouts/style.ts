@@ -12,6 +12,7 @@ export const MainContainer = styled.main`
   ${({ theme }) => theme.media.tablet} {
     width: 100%;
     margin-left: 0;
+    padding: 2em 1em;
   }
 `;
 

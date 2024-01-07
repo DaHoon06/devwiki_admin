@@ -6,6 +6,19 @@ export const PaginationLists = styled.ul`
   align-items: center;
   justify-content: center;
   padding: 1em 0;
+  
+  .prev_button, .next_button {
+    border: 1px solid ${({theme}) => theme.colors.BORDER_COLOR};
+    padding: 0.4em 0.6em;
+    
+    &:disabled {
+      color: ${({theme}) => theme.colors.BORDER_COLOR};
+    }
+  }
+  
+  .next_button {
+    
+  }
 `;
 
 export const QuizListLayout = styled.div`
@@ -111,11 +124,15 @@ export const PaginationItems = styled.li`
 
   & button {
     height: 100%;
-    color: ${({ theme }) => theme.colors.GRAY_200};
+    color: ${({ theme }) => theme.colors.BORDER_COLOR};
 
     &.active {
       font-weight: bold;
-      color: ${({ theme }) => theme.colors.PRIMARY};
+      color: ${({ theme }) => theme.colors.GRAY_200};
+    }
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.GRAY_200};
     }
   }
 `;
