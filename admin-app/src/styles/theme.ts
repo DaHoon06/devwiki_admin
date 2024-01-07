@@ -96,6 +96,12 @@ const scroll = {
     &::-webkit-scrollbar-track {
       background-color: transparent;
     }
+    
+    @media screen and (max-width: 767px) {
+      &::-webkit-scrollbar {
+        width: 0;
+      }
+    }
   `,
 };
 
