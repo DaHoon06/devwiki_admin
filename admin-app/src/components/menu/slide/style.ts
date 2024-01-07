@@ -45,7 +45,7 @@ export const SideMenuBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: calc(100% - 120px);
+  height: calc(100% - 170px);
 `;
 
 export const DarkModeOptionBox = styled.div`

@@ -11,7 +11,6 @@ import { Typography } from '@components/common/Typography';
 import useTheme from '@hooks/useTheme';
 import { ToggleSwitchButton } from '@components/common/buttons/toggle/ToggleSwitch';
 import { User } from '@components/layouts/Header';
-import {UserProfileContainer} from "./style";
 
 export const SlideMenu = (props: any): ReactElement => {
   const { isOpen, ele } = props;

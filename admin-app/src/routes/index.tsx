@@ -17,9 +17,8 @@ import { QuizListsBoard } from '@components/boards/quiz/QuizListsBoard';
 
 /**@description 권한 검사 모듈 */
 const AuthRoute = (): ReactElement => {
-  const { tokens } = useAuth();
+  const { tokens, validateToken } = useAuth();
   // validateToken();
-
   if (!tokens) return <Navigate to={'/sign-in'} replace />;
   return <Outlet />;
 };
