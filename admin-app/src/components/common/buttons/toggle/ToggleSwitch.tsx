@@ -7,7 +7,6 @@ interface Props {
 
 export const ToggleSwitchButton = (props: Props) => {
   const { mode, onClick } = props;
-  console.log(mode);
   return (
     <>
       <ToggleSwitch>

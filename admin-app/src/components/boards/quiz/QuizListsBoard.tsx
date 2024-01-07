@@ -14,6 +14,7 @@ import { FaPlus } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import { Button } from '@components/common/Button';
 import { useQuizLists } from '@services/queries/quizQuery';
+import {SpinnerUi} from "@components/ui/spinner/SpinnerUi";
 
 export const QuizListsBoard = (): ReactElement => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -124,7 +125,7 @@ export const QuizListsBoard = (): ReactElement => {
     );
   };
 
-  if (isLoading) return <span>Loading...</span>;
+  if (isLoading) return <SpinnerUi />;
 
   return (
     <CardUi label={'몰랑 퀴즈'}>

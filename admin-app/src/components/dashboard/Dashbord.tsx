@@ -127,44 +127,44 @@ export const DashboardIndex = (): ReactElement => {
   };
   return (
     <div>
-      <ItemBox>
-        <CardUi height={400} label={'일일 사용자 통계'}>
-          <div>
-            <input
-              type={'date'}
-              value={date.startDate}
-              name={'startDate'}
-              onChange={handleChangeDate}
-            />
-            <input
-              type={'date'}
-              disabled
-              value={date.endDate}
-              name={'endDate'}
-              onChange={handleChangeDate}
-            />
-          </div>
-          <LineChart data={sampleLine} legend={'사용자'} />
-        </CardUi>
-        <CardUi height={400} label={'퀴즈 정답률 통계'}>
-          <div>
-            <input
-              type={'date'}
-              value={date.startDate}
-              name={'startDate'}
-              onChange={handleChangeDate}
-            />
-            <input
-              type={'date'}
-              disabled
-              value={date.endDate}
-              name={'endDate'}
-              onChange={handleChangeDate}
-            />
-          </div>
-          <PieChart data={samplePie} legend={'사용자'} />
-        </CardUi>
-      </ItemBox>
+      {/*<ItemBox>*/}
+      {/*  <CardUi height={400} label={'일일 사용자 통계'}>*/}
+      {/*    <div>*/}
+      {/*      <input*/}
+      {/*        type={'date'}*/}
+      {/*        value={date.startDate}*/}
+      {/*        name={'startDate'}*/}
+      {/*        onChange={handleChangeDate}*/}
+      {/*      />*/}
+      {/*      <input*/}
+      {/*        type={'date'}*/}
+      {/*        disabled*/}
+      {/*        value={date.endDate}*/}
+      {/*        name={'endDate'}*/}
+      {/*        onChange={handleChangeDate}*/}
+      {/*      />*/}
+      {/*    </div>*/}
+      {/*    <LineChart data={sampleLine} legend={'사용자'} />*/}
+      {/*  </CardUi>*/}
+      {/*  <CardUi height={400} label={'퀴즈 정답률 통계'}>*/}
+      {/*    <div>*/}
+      {/*      <input*/}
+      {/*        type={'date'}*/}
+      {/*        value={date.startDate}*/}
+      {/*        name={'startDate'}*/}
+      {/*        onChange={handleChangeDate}*/}
+      {/*      />*/}
+      {/*      <input*/}
+      {/*        type={'date'}*/}
+      {/*        disabled*/}
+      {/*        value={date.endDate}*/}
+      {/*        name={'endDate'}*/}
+      {/*        onChange={handleChangeDate}*/}
+      {/*      />*/}
+      {/*    </div>*/}
+      {/*    <PieChart data={samplePie} legend={'사용자'} />*/}
+      {/*  </CardUi>*/}
+      {/*</ItemBox>*/}
       <QuizBox>
         <QuizListsBoard />
       </QuizBox>
