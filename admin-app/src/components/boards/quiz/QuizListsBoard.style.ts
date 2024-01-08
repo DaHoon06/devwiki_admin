@@ -6,18 +6,18 @@ export const PaginationLists = styled.ul`
   align-items: center;
   justify-content: center;
   padding: 1em 0;
-  
-  .prev_button, .next_button {
-    border: 1px solid ${({theme}) => theme.colors.BORDER_COLOR};
+
+  .prev_button,
+  .next_button {
+    border: 1px solid ${({ theme }) => theme.colors.BORDER_COLOR};
     padding: 0.4em 0.6em;
-    
+
     &:disabled {
-      color: ${({theme}) => theme.colors.BORDER_COLOR};
+      color: ${({ theme }) => theme.colors.BORDER_COLOR};
     }
   }
-  
+
   .next_button {
-    
   }
 `;
 
@@ -35,7 +35,7 @@ export const QuizHeader = styled.div`
   button {
     background-color: #ff2b2b !important;
     padding: 1em;
-    width: 100px;
+    width: fit-content;
     height: 30px;
 
     &:hover {
@@ -63,10 +63,10 @@ export const QuizBoxOptions = styled.div`
   display: flex;
   align-items: center;
   column-gap: 0.5em;
-  
+
   .options {
     display: flex;
-    
+
     .update_save_button {
       margin-right: 1em;
     }
@@ -74,8 +74,8 @@ export const QuizBoxOptions = styled.div`
 `;
 export const QuizBox = styled.div`
   padding: 1em 0;
-  border-top: 1px solid ${({theme}) => theme.colors.BORDER_COLOR};
-  border-bottom: 1px solid ${({theme}) => theme.colors.BORDER_COLOR};
+  border-top: 1px solid ${({ theme }) => theme.colors.BORDER_COLOR};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.BORDER_COLOR};
 
   .quiz_title_container {
     input[type='checkbox'] {

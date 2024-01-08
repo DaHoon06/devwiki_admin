@@ -38,8 +38,6 @@ export const zIndex = {
   HEADER: 300,
 };
 
-export type Colors = keyof typeof colors;
-
 export interface MixinsTheme {
   flexRowsContainer: () => string;
   flexBox: (direction?: string, align?: string, justify?: string) => string;
@@ -105,6 +103,7 @@ const scroll = {
   `,
 };
 
+export type Colors = keyof typeof colors;
 export const theme: DefaultTheme = {
   colors,
   zIndex,

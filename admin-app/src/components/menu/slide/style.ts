@@ -2,11 +2,14 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 export const SideMenuContainer = styled(motion.aside)`
-  position: absolute;
-  left: 0;
+  opacity: 1;
+  position: fixed;
   top: 0;
+  right: 0;
+  min-height: 100vh;
+  height: auto;
+  left: 0;
   width: 100%;
-  height: 100vh;
   z-index: 999;
   display: flex;
   justify-content: flex-end;
@@ -16,7 +19,7 @@ export const SideMenuContainer = styled(motion.aside)`
 export const SideMenuBody = styled(motion.div)`
   background-color: ${({ theme }) => theme.colors.bg.primary};
   border-color: ${({ theme }) => theme.colors.GRAY_500};
-  height: 100%;
+  height: 100vh;
   width: 50vw;
   max-width: 200px;
 `;
@@ -28,12 +31,11 @@ export const ButtonWrapper = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   padding: 1em;
-  
+
   .logo_name {
     display: flex;
     align-items: center;
     column-gap: 0.3em;
-    
   }
 `;
 
