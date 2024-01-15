@@ -87,9 +87,20 @@ export const QuizBox = styled.div`
     }
   }
 
+  .text-input {
+    width: 100%;
+    color: ${({ theme }) => theme.colors.TEXT_DEFAULT};
+    padding: 0.5em 0.8em;
+  }
+
   label {
     display: flex;
     flex-direction: column;
+    margin-bottom: 1em;
+
+    .label {
+      margin-bottom: 0.5em;
+    }
   }
 
   &:hover {
@@ -110,6 +121,11 @@ export const QuizBox = styled.div`
 
     label {
       width: 30%;
+
+      input {
+        color: ${({ theme }) => theme.colors.TEXT_DEFAULT};
+        padding: 0.5em 0.8em;
+      }
     }
   }
 `;

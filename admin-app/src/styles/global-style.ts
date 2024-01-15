@@ -55,7 +55,7 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     color: var(--textDefault);
-    background-color: ${({theme}) => theme.colors.bg.primary};
+    background-color: ${({ theme }) => theme.colors.bg.primary};
     transition: background 0.2s ease-in, color 0.2s ease-in;
     width: 100%;
     height: 100%;
@@ -163,7 +163,7 @@ export const GlobalStyle = createGlobalStyle`
     --boarder_color: #404751;
 
     // Typography - dark
-    --textDefault: #ADBAC7;
+    --textDefault: #fff;
     --textWhite: #fff;
     --textPrimary: #ADBAC7;
     --textBlack000: #000;

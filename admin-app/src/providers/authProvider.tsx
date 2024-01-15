@@ -30,7 +30,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const signOut = () => {
     setTokens(null);
-    removeStorageItems(STORAGE_USER_KEY);
+    removeStorageItems(STORAGE_TOKEN_KEY);
+    setExpiredToken(true);
   };
 
   const signIn = async (loginData: RequestSignIn) => {
@@ -41,9 +42,21 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const validateToken = async (): Promise<void> => {
-    const expired = await validateAccessTokenApi();
-    if (expired) signOut();
-    setExpiredToken(expired);
+    const refreshToken = tokens?.refreshToken;
+    if (refreshToken) {
+      const { accessToken } = await validateAccessTokenApi(refreshToken);
+      if (!accessToken || accessToken.length === 0) {
+        signOut();
+      } else {
+        const payload = {
+          accessToken,
+          refreshToken,
+        };
+        setTokens(payload);
+        setStorageItems(STORAGE_TOKEN_KEY, payload);
+        setExpiredToken(false);
+      }
+    }
   };
 
   const value = {

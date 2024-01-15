@@ -75,7 +75,7 @@ export const User = (): ReactElement => {
     name: string;
   }>();
   const navigate = useNavigate();
-  const user = getStorageItems('user');
+  const user = { name: '데브위키' };
 
   useEffect(() => {
     if (user && user.name) setUserName(user.name);

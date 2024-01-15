@@ -56,7 +56,8 @@
     "redux-devtools-extension": "^2.13.9"
   },
   "scripts": {
-    "start": "export PORT=4000 && craco start",
+    "start:window": "set PORT=4000 && craco start",
+    "start:mac": "export PORT=4000 && craco start",
     "build": "craco build",
     "test": "craco test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
     "eject": "craco eject"

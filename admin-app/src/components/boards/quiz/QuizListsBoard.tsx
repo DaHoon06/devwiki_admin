@@ -12,8 +12,8 @@ import { FaPlus } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import { Button } from '@components/common/Button';
 import { useQuizLists } from '@services/queries/quizQuery';
-import {SpinnerUi} from "@components/ui/spinner/SpinnerUi";
-import { GrLinkPrevious, GrLinkNext } from "react-icons/gr";
+import { SpinnerUi } from '@components/ui/spinner/SpinnerUi';
+import { GrLinkPrevious, GrLinkNext } from 'react-icons/gr';
 
 export const QuizListsBoard = (): ReactElement => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,11 +27,11 @@ export const QuizListsBoard = (): ReactElement => {
 
   const boardData = useMemo(() => {
     if (isLoading) return null;
-    return data
+    return data;
   }, [data, isLoading]);
 
   useEffect(() => {
-    if (boardData?.quizList) setInputState(boardData.quizList)
+    if (boardData?.quizList) setInputState(boardData.quizList);
   }, [boardData]);
 
   const onClickPaginationHandler = (page: number) => {
@@ -46,7 +46,7 @@ export const QuizListsBoard = (): ReactElement => {
     const body = inputState.filter((board) => board.quizId === quizId);
     if (body) updateQuizMutate(body);
     setUpdateQuizId(-1);
-  }
+  };
 
   const onClickCancelQuizHandler = () => {
     setUpdateQuizId(-1);
@@ -78,17 +78,19 @@ export const QuizListsBoard = (): ReactElement => {
     quizId: number
   ) => {
     const { value, name } = e.target;
-    setInputState(inputState.map((quiz) => {
-      if (quiz.quizId === quizId) {
+    setInputState(
+      inputState.map((quiz) => {
+        if (quiz.quizId === quizId) {
+          return {
+            ...quiz,
+            [name]: value,
+          };
+        }
         return {
           ...quiz,
-          [name]: value,
         };
-      }
-      return {
-        ...quiz,
-      };
-    }))
+      })
+    );
   };
 
   const inputDisabledCheck = (quizId: number): boolean => {
@@ -98,7 +100,7 @@ export const QuizListsBoard = (): ReactElement => {
   const onClickPageButton = (type: string) => {
     if (type === 'prev') setCurrentPage(currentPage - 1);
     else if (type === 'next') setCurrentPage(currentPage + 1);
-  }
+  };
 
   const Pagination = (): ReactElement => {
     const group = [];
@@ -118,7 +120,12 @@ export const QuizListsBoard = (): ReactElement => {
     }
     return (
       <S.PaginationLists>
-        <Button onClick={() => onClickPageButton('prev')} disabled={currentPage === 1} className={'prev_button'} variant={'icon'}>
+        <Button
+          onClick={() => onClickPageButton('prev')}
+          disabled={currentPage === 1}
+          className={'prev_button'}
+          variant={'icon'}
+        >
           <GrLinkPrevious color={currentPage === 1 ? '#404751' : '#dddddd'} />
         </Button>
         {group.map((pageButtonElement, index) => {
@@ -128,8 +135,15 @@ export const QuizListsBoard = (): ReactElement => {
             </S.PaginationItems>
           );
         })}
-        <Button onClick={() => onClickPageButton('next')} disabled={currentPage === group.length} className={'next_button'} variant={'icon'}>
-          <GrLinkNext color={currentPage === group.length ? '#404751' : '#DDDDDD'} />
+        <Button
+          onClick={() => onClickPageButton('next')}
+          disabled={currentPage === group.length}
+          className={'next_button'}
+          variant={'icon'}
+        >
+          <GrLinkNext
+            color={currentPage === group.length ? '#404751' : '#DDDDDD'}
+          />
         </Button>
       </S.PaginationLists>
     );
@@ -204,7 +218,11 @@ export const QuizListsBoard = (): ReactElement => {
                             }
                             className={'update_save_button'}
                           >
-                            <Typography as={'span'} $color={'textDefault'} $variant={"caption"}>
+                            <Typography
+                              as={'span'}
+                              $color={'textDefault'}
+                              $variant={'caption'}
+                            >
                               퀴즈 저장하기
                             </Typography>
                           </Button>
@@ -213,7 +231,11 @@ export const QuizListsBoard = (): ReactElement => {
                             type={'button'}
                             onClick={() => onClickCancelQuizHandler()}
                           >
-                            <Typography as={'span'} $color={'textDefault'} $variant={"caption"}>
+                            <Typography
+                              as={'span'}
+                              $color={'textDefault'}
+                              $variant={'caption'}
+                            >
                               취소
                             </Typography>
                           </Button>
@@ -224,7 +246,11 @@ export const QuizListsBoard = (): ReactElement => {
                           type={'button'}
                           onClick={() => onClickEditModeHandler(board.quizId)}
                         >
-                          <Typography as={'span'} $color={'textDefault'} $variant={"caption"}>
+                          <Typography
+                            as={'span'}
+                            $color={'textDefault'}
+                            $variant={'caption'}
+                          >
                             퀴즈 수정하기
                           </Typography>
                         </Button>
@@ -233,6 +259,7 @@ export const QuizListsBoard = (): ReactElement => {
                     <div>
                       <label>
                         <Typography
+                          className={'label'}
                           as={'span'}
                           $color={'textGray200'}
                           $weight={'medium'}
@@ -240,6 +267,7 @@ export const QuizListsBoard = (): ReactElement => {
                           퀴즈
                         </Typography>
                         <input
+                          className={'text-input'}
                           type={'text'}
                           name={'question'}
                           value={board.question}
@@ -253,6 +281,7 @@ export const QuizListsBoard = (): ReactElement => {
                     <div className={'answer_input_box'}>
                       <label>
                         <Typography
+                          className={'label'}
                           as={'span'}
                           $color={'textGray200'}
                           $weight={'medium'}
@@ -269,6 +298,7 @@ export const QuizListsBoard = (): ReactElement => {
                       </label>
                       <label>
                         <Typography
+                          className={'label'}
                           as={'span'}
                           $color={'textGray200'}
                           $weight={'medium'}
@@ -285,6 +315,7 @@ export const QuizListsBoard = (): ReactElement => {
                       </label>
                       <label>
                         <Typography
+                          className={'label'}
                           as={'span'}
                           $color={'textGray200'}
                           $weight={'medium'}

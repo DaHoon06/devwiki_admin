@@ -14,19 +14,19 @@ import { ReactElement } from 'react';
 import { SchedulePage } from '@pages/SchedulePage';
 import { QuizPost } from '@components/boards/quiz/QuizPost';
 import { QuizListsBoard } from '@components/boards/quiz/QuizListsBoard';
+import { NotFoundPage, ServerErrorPage } from '@pages/error';
 
 /**@description 권한 검사 모듈 */
 const AuthRoute = (): ReactElement => {
-  const { tokens, validateToken } = useAuth();
-  // validateToken();
+  const { tokens, validateToken, expiredToken } = useAuth();
+  if (expiredToken) validateToken();
   if (!tokens) return <Navigate to={'/sign-in'} replace />;
   return <Outlet />;
 };
 
 const LoginCheckRoute = (): ReactElement => {
-  const { tokens } = useAuth();
-  // validateToken();
-
+  const { tokens, validateToken, expiredToken } = useAuth();
+  if (expiredToken) validateToken();
   if (tokens) return <Navigate to={'/'} replace />;
   return <Outlet />;
 };
@@ -50,6 +50,8 @@ export const router = createBrowserRouter(
           </Route>
         </Route>
       </Route>
+      <Route path={'/error'} element={<ServerErrorPage />} />
+      <Route path={'/404'} element={<NotFoundPage />} />
     </>
   )
 );

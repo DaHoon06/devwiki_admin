@@ -1,6 +1,8 @@
 import { axiosInstance } from '@libs/Axios';
 import { RequestSignIn } from '@interfaces/response.user';
 import { responseDataConvert } from '@utils/convert';
+import axios from "axios";
+import {PRODUCT_HOST_API} from "@config/index";
 
 export interface ResponseData {
   accessToken: string;
@@ -46,7 +48,17 @@ export const signInApi = async (payload: RequestSignIn) => {
 /**
  * @description 토큰 검사
  */
-export const validateAccessTokenApi = async (): Promise<boolean> => {
-  const { data } = await axiosInstance.get('/sign-in/refresh');
-  return !data.success;
+export const validateAccessTokenApi = async (refreshToken: string): Promise<{accessToken: string}> => {
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${refreshToken}`
+  }
+  const { data } = await axios.post(`${PRODUCT_HOST_API}/sign-in/refresh`, {}, {
+    headers
+  });
+  const result = responseDataConvert<any>(data);
+  if (result) {
+    return {accessToken: result.accessToken}
+  }
+  return {accessToken: '',}
 };

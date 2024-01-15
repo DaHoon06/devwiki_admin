@@ -3,6 +3,7 @@ import { DefaultTheme } from 'styled-components';
 export const colors = {
   PRIMARY: '#1a283e',
   PRIMARY_SOFT: '#04C09E',
+  TEXT_DEFAULT: 'var(--textDefault)',
   GRAY_100: '#F6F6F6',
   GRAY_200: '#DDDDDD',
   GRAY_300: '#ECEBF1',
