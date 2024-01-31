@@ -18,15 +18,13 @@ import { NotFoundPage, ServerErrorPage } from '@pages/error';
 
 /**@description 권한 검사 모듈 */
 const AuthRoute = (): ReactElement => {
-  const { tokens, validateToken, expiredToken } = useAuth();
-  if (expiredToken) validateToken();
+  const { tokens } = useAuth();
   if (!tokens) return <Navigate to={'/sign-in'} replace />;
   return <Outlet />;
 };
 
 const LoginCheckRoute = (): ReactElement => {
-  const { tokens, validateToken, expiredToken } = useAuth();
-  if (expiredToken) validateToken();
+  const { tokens } = useAuth();
   if (tokens) return <Navigate to={'/'} replace />;
   return <Outlet />;
 };

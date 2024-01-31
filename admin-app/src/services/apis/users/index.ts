@@ -56,9 +56,11 @@ export const validateAccessTokenApi = async (refreshToken: string): Promise<{acc
   const { data } = await axios.post(`${PRODUCT_HOST_API}/sign-in/refresh`, {}, {
     headers
   });
-  const result = responseDataConvert<any>(data);
-  if (result) {
-    return {accessToken: result.accessToken}
+  if (data) {
+    const result = responseDataConvert<any>(data);
+    if (result) {
+      return {accessToken: result.accessToken}
+    }
   }
   return {accessToken: '',}
 };
