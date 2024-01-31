@@ -126,7 +126,7 @@ export const QuizListsBoard = (): ReactElement => {
           className={'prev_button'}
           variant={'icon'}
         >
-          <GrLinkPrevious color={currentPage === 1 ? '#404751' : '#dddddd'} />
+          <GrLinkPrevious color={'#ededed'} />
         </Button>
         {group.map((pageButtonElement, index) => {
           return (
@@ -141,9 +141,7 @@ export const QuizListsBoard = (): ReactElement => {
           className={'next_button'}
           variant={'icon'}
         >
-          <GrLinkNext
-            color={currentPage === group.length ? '#404751' : '#DDDDDD'}
-          />
+          <GrLinkNext color={'#ededed'} />
         </Button>
       </S.PaginationLists>
     );

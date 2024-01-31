@@ -18,6 +18,8 @@ export const colors = {
   BLACK_400: '#525252',
   BLACK_500: '#737373',
   BORDER_COLOR: 'var(--boarder_color)',
+  ACTIVE: 'var(--active)',
+  UNACTIVE: 'var(--unactive)',
   WHITE: '#FFFFFF',
   none: 'none',
   textDefault: '#ededed',

@@ -62,13 +62,7 @@ export const SignInComponent = (): ReactElement => {
       e.preventDefault();
       const check = validation();
       if (check) {
-        //todo base64 encoding
-        // const payload = {
-        //   id: rsaEncrypt(id),
-        //   password: rsaEncrypt(password),
-        // };
         await signIn(login);
-        // await navigate('/');
       }
     } catch (e: unknown) {
       if (e instanceof AxiosError) toast.message(e.message, 'error');

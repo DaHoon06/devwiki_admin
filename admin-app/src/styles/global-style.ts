@@ -115,7 +115,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
 
-  body[data-theme="light"] {
+  html, body, body[data-theme="light"] {
     // major(theme)
     --primary: #1a283e;
     --blockquote: #FFE588;
@@ -149,6 +149,9 @@ export const GlobalStyle = createGlobalStyle`
     --bg_card: #fff;
     --bg_card_label: #fff;
     --bg_side_menu: #FFFFFFC4;
+
+    --active: #222;
+    --unactive: #fff;
   }
 
   body[data-theme="dark"] {
@@ -184,5 +187,7 @@ export const GlobalStyle = createGlobalStyle`
     --bg_card_label: #2d333b;
     --bg_sub: #1c2128;
     --bg_side_menu: #1c2128;
+    --active: #fff;
+    --unactive: #222;
   }
 `;

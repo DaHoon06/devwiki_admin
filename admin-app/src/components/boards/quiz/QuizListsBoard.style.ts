@@ -12,12 +12,11 @@ export const PaginationLists = styled.ul`
     border: 1px solid ${({ theme }) => theme.colors.BORDER_COLOR};
     padding: 0.4em 0.6em;
 
-    &:disabled {
-      color: ${({ theme }) => theme.colors.BORDER_COLOR};
+    &:hover {
+      &:not(:disabled) {
+        background-color: #fcfcfc;
+      }
     }
-  }
-
-  .next_button {
   }
 `;
 
@@ -144,11 +143,11 @@ export const PaginationItems = styled.li`
 
     &.active {
       font-weight: bold;
-      color: ${({ theme }) => theme.colors.GRAY_200};
+      color: ${({ theme }) => theme.colors.ACTIVE};
     }
 
     &:hover {
-      color: ${({ theme }) => theme.colors.GRAY_200};
+      color: ${({ theme }) => theme.colors.ACTIVE};
     }
   }
 `;
