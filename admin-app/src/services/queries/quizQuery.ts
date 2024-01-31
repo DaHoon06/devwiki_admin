@@ -10,6 +10,7 @@ export const useQuizLists = (query: QuizListRequestQuery) => {
       refetchOnMount: true,
       refetchOnReconnect: true,
       refetchOnWindowFocus: true,
+      keepPreviousData: true,
     }
   );
   return { isLoading, data };
