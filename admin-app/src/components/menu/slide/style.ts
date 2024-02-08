@@ -6,7 +6,7 @@ export const SideMenuContainer = styled(motion.aside)`
   position: fixed;
   top: 0;
   right: 0;
-  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
   height: auto;
   left: 0;
   width: 100%;
@@ -19,7 +19,7 @@ export const SideMenuContainer = styled(motion.aside)`
 export const SideMenuBody = styled(motion.div)`
   background-color: ${({ theme }) => theme.colors.bg.primary};
   border-color: ${({ theme }) => theme.colors.GRAY_500};
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   width: 50vw;
   max-width: 200px;
 `;
