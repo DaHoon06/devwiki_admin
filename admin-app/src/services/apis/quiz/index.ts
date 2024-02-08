@@ -1,5 +1,5 @@
 import { axiosInstance } from '@libs/Axios';
-import { InsertQuizData, QuizLists, UpdateQuizData } from '@interfaces/Quiz';
+import {InsertQuizData, QuizLists, UpdateQuiz, UpdateQuizData} from '@interfaces/Quiz';
 import { responseDataConvert } from '@utils/convert';
 
 export type QuizListRequestQuery = {
@@ -13,7 +13,13 @@ export const findQuizListsApi = async (
     const { data } = await axiosInstance.get(
       `/admin/quizzes?page=${query.page}`
     );
-    return responseDataConvert<QuizLists>(data);
+    if (data.success) return responseDataConvert<QuizLists>(data);
+    return {
+      totalElement: 0,
+      totalPage: 0,
+      hasNext: false,
+      quizList: []
+    };
   } catch (e) {
     throw e;
   }
